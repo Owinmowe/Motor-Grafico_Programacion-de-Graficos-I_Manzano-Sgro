@@ -252,8 +252,6 @@ namespace engine
 		int top_tile = (convertedPosY / tileHeight) * -1;
 		int bottom_tile = ((convertedPosY - object.getScale().y) / tileHeight) *-1; // Se resta porque el eje Y crece hacia arriba
 
-		std::cout << std::endl;
-
 		if (left_tile < 0)
 			left_tile = 0;
 
@@ -327,8 +325,8 @@ namespace engine
 
 						if (colType != engine::collisionType::none)
 						{
-							std::cout << "overlapx = " << overlapX << std::endl;
-							std::cout << "overlapy = " << overlapY << std::endl;
+							//std::cout << "overlapx = " << overlapX << std::endl;
+							//std::cout << "overlapy = " << overlapY << std::endl;
 
 							object.applyCollisionRestrictions(colType, overlapX, overlapY, false);
 							return true;
