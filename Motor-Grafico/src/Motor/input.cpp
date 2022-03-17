@@ -9,7 +9,8 @@ namespace engine
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 	std::list<int> currentKeysDown;
-	glm::vec2 mousePosition;
+	glm::vec2 lastMousePosition;
+	bool firstMouse = false;
 
 	input::input(window* window)
 	{
@@ -40,7 +41,7 @@ namespace engine
 	}
 	glm::vec2 input::getMousePosition()
 	{
-		return mousePosition;
+		return lastMousePosition;
 	}
 	void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
@@ -53,8 +54,21 @@ namespace engine
 			currentKeysDown.remove(key);
 		}
 	}
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+	void mouse_callback(GLFWwindow* window, double posX, double posY)
 	{
-		mousePosition = glm::vec2(xpos, ypos);
+		float offsetPosX = posX - lastMousePosition.x;
+		float offsetPosY = lastMousePosition.y - posY; //Coordenadas en Y estan invertidas
+
+
+		if (firstMouse)
+		{
+			lastMousePosition.x = posX;
+			lastMousePosition.y = posY;
+			firstMouse = false;
+		}
+
+
+
+		//lastMousePosition = glm::vec2(posX, posY);
 	}
 }
