@@ -3,12 +3,12 @@
 
 namespace engine
 {
-	camera::camera(renderer* currentRenderer, glm::vec3 position, glm::vec3 lookPosition, glm::vec3 upVector)
+	camera::camera(renderer* currentRenderer, glm::vec3 position, glm::vec3 lookPosition, glm::vec3 upVector, float fieldOfView, float nearClip, float farClip)
 	{
 		this->currentRenderer = currentRenderer;
 
 		//TODO agregar propiedades/posibilidad de camara ortogonal
-		projectionMatrix = glm::perspective(glm::radians(90.0f), (float)currentRenderer->getCurrentWindow()->getWidth() / (float)currentRenderer->getCurrentWindow()->getHeight(), 0.1f, 500.0f);
+		projectionMatrix = glm::perspective(fieldOfView, (float)currentRenderer->getCurrentWindow()->getWidth() / (float)currentRenderer->getCurrentWindow()->getHeight(), nearClip, farClip);
 		this->currentRenderer->setProjectionMatrix(projectionMatrix);
 		setCameraTransform(position, lookPosition, upVector);
 	}
@@ -25,6 +25,10 @@ namespace engine
 		pos += movePosition;
 		look += movePosition;
 		setCameraTransform(pos, look, up);
+	}
+	void camera::changeCameraAim(float xoffset, float yoffset, bool constrainPitch)
+	{
+
 	}
 	camera::~camera()
 	{

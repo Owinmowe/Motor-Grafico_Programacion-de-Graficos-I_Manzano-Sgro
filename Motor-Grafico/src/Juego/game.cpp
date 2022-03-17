@@ -182,10 +182,10 @@ void game::update()
 
 void game::init()
 {
-	glm::vec3 camStartingPos = { 0, 50, 150 };
+	glm::vec3 camStartingPos = { 0, 50, 250 };
 	glm::vec3 camLookPos = { 0, 50, 0 };
 	glm::vec3 camUpVector = { 0, 1, 0 };
-	cam = new engine::camera(currentRenderer, camStartingPos, camLookPos, camUpVector);
+	cam = new engine::camera(currentRenderer, camStartingPos, camLookPos, camUpVector, 45.f, .1f, 500.f);
 	tileMap = new engine::tileMap(currentRenderer);
 
 	if (tileMap->importTileMap("../res/assets/tilemapreal.tmx"))

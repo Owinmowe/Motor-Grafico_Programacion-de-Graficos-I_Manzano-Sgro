@@ -11,9 +11,10 @@ namespace engine
 	class ENGINE_API camera
 	{
 	public:
-		camera(renderer* currentRenderer, glm::vec3 position, glm::vec3 lookPosition, glm::vec3 upVector);
+		camera(renderer* currentRenderer, glm::vec3 position, glm::vec3 lookPosition, glm::vec3 upVector, float fieldOfView, float nearClip, float farClip);
 		void setCameraTransform(glm::vec3 startingPosition, glm::vec3 lookPosition, glm::vec3 upVector);
 		void moveCamera(glm::vec3 movePosition);
+		void changeCameraAim(float xoffset, float yoffset, bool constrainPitch = true);
 		~camera();
 	private:
 		glm::mat4 viewMatrix;
