@@ -43,12 +43,16 @@ namespace engine
 		bool isKeyDown(int keycode);
 		// ~ ENGINE ~ Returns the current mouse position relative to the screen size.
 		glm::vec2 getMousePosition();
+		// ~ ENGINE ~ Returns the current mouse position offset from last frame.
+		glm::vec2 getDeltaMousePosition();
 
 		// General
 		// ~ ENGINE ~  Changes screen clear color to the parameter float values. 
 		void changeClearColor(glm::vec4 color);
 		// ~ ENGINE ~  Returns a double corresponding to the current time since GLFW context started. 
 		double getCurrentTime();
+		// ~ ENGINE ~  Hides cursor and locks it to the center of the screen. 
+		void lockCursor();
 
 		// Lerp
 		// ~ ENGINE ~  Lerps between two float values based on a t Value. 

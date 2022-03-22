@@ -9,13 +9,18 @@ namespace engine
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 	std::list<int> currentKeysDown;
-	glm::vec2 lastMousePosition;
+	glm::vec2 mousePosition;
+	glm::vec2 offsetMousePosition;
 	bool firstMouse = false;
+	const float sensitivity = 0.1f;
+
 
 	input::input(window* window)
 	{
 		glfwSetKeyCallback(window->getGLFWwindow(), keyCallback);
 		glfwSetCursorPosCallback(window->getGLFWwindow(), mouse_callback);
+		mousePosition.x = window->getWidth() / 2;
+		mousePosition.y = window->getHeight() / 2;
 	}
 
 	input::~input()
@@ -41,7 +46,13 @@ namespace engine
 	}
 	glm::vec2 input::getMousePosition()
 	{
-		return lastMousePosition;
+		return mousePosition;
+	}
+	glm::vec2 input::getDeltaMousePosition()
+	{
+		glm::vec2 previousOffset = offsetMousePosition;
+		offsetMousePosition = glm::vec2(0, 0);
+		return previousOffset;
 	}
 	void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
@@ -56,19 +67,22 @@ namespace engine
 	}
 	void mouse_callback(GLFWwindow* window, double posX, double posY)
 	{
-		float offsetPosX = posX - lastMousePosition.x;
-		float offsetPosY = lastMousePosition.y - posY; //Coordenadas en Y estan invertidas
-
 
 		if (firstMouse)
 		{
-			lastMousePosition.x = posX;
-			lastMousePosition.y = posY;
+			mousePosition.x = posX;
+			mousePosition.y = posY;
 			firstMouse = false;
 		}
 
+		float offsetPosX = posX - mousePosition.x;
+		float offsetPosY = mousePosition.y - posY; //Coordenadas en Y estan invertidas
+		mousePosition.x = posX;
+		mousePosition.y = posY;
 
-
-		//lastMousePosition = glm::vec2(posX, posY);
+		offsetPosX *= sensitivity;
+		offsetPosY *= sensitivity;
+		offsetMousePosition.x = offsetPosX;
+		offsetMousePosition.y = offsetPosY;
 	}
 }

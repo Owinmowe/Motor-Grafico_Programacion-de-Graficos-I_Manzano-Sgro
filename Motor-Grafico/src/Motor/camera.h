@@ -11,17 +11,22 @@ namespace engine
 	class ENGINE_API camera
 	{
 	public:
-		camera(renderer* currentRenderer, glm::vec3 position, glm::vec3 lookPosition, glm::vec3 upVector, float fieldOfView, float nearClip, float farClip);
-		void setCameraTransform(glm::vec3 startingPosition, glm::vec3 lookPosition, glm::vec3 upVector);
-		void moveCamera(glm::vec3 movePosition);
+		camera(renderer* currentRenderer, float fieldOfView, float nearClip, float farClip);
+		void moveCameraByGlobalVector(glm::vec3 movePosition);
+		void moveCameraByLocalVector(glm::vec3 movePosition);
 		void changeCameraAim(float xoffset, float yoffset, bool constrainPitch = true);
 		~camera();
 	private:
+		void setCameraTransform(glm::vec3 position, glm::vec3 front, glm::vec3 right, glm::vec3 up);
+		void updateCameraVectors();
 		glm::mat4 viewMatrix;
 		glm::mat4 projectionMatrix;
-		glm::vec3 pos;
-		glm::vec3 look;
-		glm::vec3 up;
+		glm::vec3 positionVector;
+		glm::vec3 rightVector;
+		glm::vec3 frontVector;
+		glm::vec3 upVector;
+		float yaw;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+		float pitch;
 		renderer* currentRenderer;
 	};
 }

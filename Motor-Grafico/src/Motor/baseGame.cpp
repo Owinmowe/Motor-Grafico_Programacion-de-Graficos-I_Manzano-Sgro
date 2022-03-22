@@ -100,9 +100,17 @@ namespace engine
     {
         return currentInput->getMousePosition();
     }
+    glm::vec2 baseGame::getDeltaMousePosition()
+    {
+        return currentInput->getDeltaMousePosition();
+    }
     double baseGame::getCurrentTime()
     {
         return glfwGetTime();
+    }
+    void baseGame::lockCursor()
+    {
+        glfwSetInputMode(currentWindow->getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
     float baseGame::getRandomNumber(float min, float max)
     {

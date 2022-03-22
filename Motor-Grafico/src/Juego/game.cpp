@@ -47,7 +47,7 @@ void game::draw()
 	tileMap->draw();
 	//imageCampus->draw();
 	//container->draw();
-	awesomeface->draw();
+	//awesomeface->draw();
 	//triangle->draw();
 	//triangle2->draw();
 	//triangle3->draw();
@@ -110,8 +110,7 @@ void game::update()
 		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed / 2, pos.y - engine::time::getDeltaTime() * runSpeed / 2, pos.z);
 		archer->playAnimation(archerRunDownRightAnimationID);
 	}
-	else 
-	if(isKeyPressed(ENGINE_KEY_A))
+	else if(isKeyPressed(ENGINE_KEY_A))
 	{
 		glm::vec3 pos = archer->getPos();
 		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed, pos.y, pos.z);
@@ -143,51 +142,36 @@ void game::update()
 	if(isKeyPressed(ENGINE_KEY_LEFT))
 	{
 		glm::vec3 movement = { engine::time::getDeltaTime() * -cameraSpeed, 0, 0 };
-		cam->moveCamera(movement);
+		cam->moveCameraByLocalVector(movement);
 	}
 	else if (isKeyPressed(ENGINE_KEY_RIGHT))
 	{
 		glm::vec3 movement = { engine::time::getDeltaTime() * cameraSpeed, 0, 0 };
-		cam->moveCamera(movement);
+		cam->moveCameraByLocalVector(movement);
 	}
 	if (isKeyPressed(ENGINE_KEY_UP))
 	{
-		glm::vec3 movement = { 0, engine::time::getDeltaTime() * cameraSpeed , 0 };
-		cam->moveCamera(movement);
+		glm::vec3 movement = { 0, 0 , engine::time::getDeltaTime() * -cameraSpeed };
+		cam->moveCameraByLocalVector(movement);
 	}
 	else if (isKeyPressed(ENGINE_KEY_DOWN))
 	{
-		glm::vec3 movement = { 0, engine::time::getDeltaTime() * -cameraSpeed , 0 };
-		cam->moveCamera(movement);
-	}
-	else if (isKeyPressed(ENGINE_KEY_U))
-	{
 		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * cameraSpeed };
-		cam->moveCamera(movement);
-	}
-	else if (isKeyPressed(ENGINE_KEY_I))
-	{
-		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -cameraSpeed };
-		cam->moveCamera(movement);
+		cam->moveCameraByLocalVector(movement);
 	}
 
-	if (isKeyDown(ENGINE_KEY_ENTER))
-	{
-		if (hasCollider(archer)) removeCollider(archer);
-		else addCollider(archer, false);
-	}
+	glm::vec2 mousePositionDelta = getDeltaMousePosition();
+	cam->changeCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
 
-	updateCollisions(tileMap);
 }
 
 void game::init()
 {
-	glm::vec3 camStartingPos = { 0, 50, 250 };
-	glm::vec3 camLookPos = { 0, 50, 0 };
-	glm::vec3 camUpVector = { 0, 1, 0 };
-	cam = new engine::camera(currentRenderer, camStartingPos, camLookPos, camUpVector, 45.f, .1f, 500.f);
+	lockCursor();
+	cam = new engine::camera(currentRenderer, 45.f, .1f, 500.f);
 	tileMap = new engine::tileMap(currentRenderer);
 
+	
 	if (tileMap->importTileMap("../res/assets/tilemapreal.tmx"))
 	{
 		std::cout << "tilemap loaded";
@@ -196,6 +180,7 @@ void game::init()
 	{
 		std::cout << "tilemap failed to load";
 	}
+	
 
 	//triangle = new engine::shape(currentRenderer, 3);
 	//triangle->setScale(3, 3, 3);
@@ -225,9 +210,9 @@ void game::init()
 	//container->setScale(glm::vec3(10, 10, 10));
 	//container->setPos(glm::vec3(-15, 0, 0));
 	//
-	awesomeface = new engine::sprite(currentRenderer, "../res/assets/textures/awesomeface.png", true);
-	awesomeface->setScale(glm::vec3(32, 32, 1));
-	awesomeface->setPos(glm::vec3(-80, 0, 0));
+	//awesomeface = new engine::sprite(currentRenderer, "../res/assets/textures/awesomeface.png", true);
+	//awesomeface->setScale(glm::vec3(32, 32, 1));
+	//awesomeface->setPos(glm::vec3(-80, 0, 0));
 
 	archer = new engine::sprite(currentRenderer, "../res/assets/textures/Atlas Sprites/archerFullAtlas.png", false);
 	
@@ -272,8 +257,8 @@ void game::init()
 	changeClearColor(glm::vec4(0, 0, 0, 1));
 	//changeClearColor(glm::vec4(.25, .25, .5, 1));
 
-	addCollider(archer, false);
-	addCollider(awesomeface, false);
+	//addCollider(archer, false);
+	//addCollider(awesomeface, false);
 	
 	//addCollider(triangle, false);
 	//addCollider(triangle2, false);
@@ -289,8 +274,8 @@ void game::deInit()
 	//delete imageCampus;
 	//container->deinit();
 	//delete container;
-	awesomeface->deinit();
-	delete awesomeface;
+	//awesomeface->deinit();
+	//delete awesomeface;
 	archer->deinit();
 	delete archer;
 	//delete triangle;
