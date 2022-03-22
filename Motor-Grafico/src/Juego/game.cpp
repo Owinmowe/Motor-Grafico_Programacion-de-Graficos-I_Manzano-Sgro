@@ -11,7 +11,7 @@ game::game()
 	//triangle2 = nullptr;
 	//triangle3 = nullptr;
 	//quad = nullptr;
-	cam = nullptr;
+	firstPersonCamera = nullptr;
 	tileMap = nullptr;
 	colors[0] = glm::vec4(0, 0, 0, 0);
 	colors[1] = glm::vec4(1, 0, 0, 1);
@@ -142,33 +142,33 @@ void game::update()
 	if(isKeyPressed(ENGINE_KEY_LEFT))
 	{
 		glm::vec3 movement = { engine::time::getDeltaTime() * -cameraSpeed, 0, 0 };
-		cam->moveCameraByLocalVector(movement);
+		firstPersonCamera->moveCameraByLocalVector(movement);
 	}
 	else if (isKeyPressed(ENGINE_KEY_RIGHT))
 	{
 		glm::vec3 movement = { engine::time::getDeltaTime() * cameraSpeed, 0, 0 };
-		cam->moveCameraByLocalVector(movement);
+		firstPersonCamera->moveCameraByLocalVector(movement);
 	}
 	if (isKeyPressed(ENGINE_KEY_UP))
 	{
 		glm::vec3 movement = { 0, 0 , engine::time::getDeltaTime() * -cameraSpeed };
-		cam->moveCameraByLocalVector(movement);
+		firstPersonCamera->moveCameraByLocalVector(movement);
 	}
 	else if (isKeyPressed(ENGINE_KEY_DOWN))
 	{
 		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * cameraSpeed };
-		cam->moveCameraByLocalVector(movement);
+		firstPersonCamera->moveCameraByLocalVector(movement);
 	}
 
 	glm::vec2 mousePositionDelta = getDeltaMousePosition();
-	cam->changeCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
+	firstPersonCamera->changeCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
 
 }
 
 void game::init()
 {
 	lockCursor();
-	cam = new engine::camera(currentRenderer, 45.f, .1f, 500.f);
+	firstPersonCamera = new engine::camera(currentRenderer, 45.f, .1f, 500.f);
 	tileMap = new engine::tileMap(currentRenderer);
 
 	
@@ -269,7 +269,7 @@ void game::init()
 
 void game::deInit()
 {
-	delete cam;
+	delete firstPersonCamera;
 	//imageCampus->deinit();
 	//delete imageCampus;
 	//container->deinit();

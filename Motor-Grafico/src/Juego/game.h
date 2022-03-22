@@ -28,9 +28,9 @@ private:
 	//engine::shape* triangle2;
 	//engine::shape* triangle3;
 	//engine::shape* quad;
-	engine::camera* cam;
+	engine::camera* firstPersonCamera;
 	engine::tileMap* tileMap;
-	float cameraSpeed = 30.f;
+	float cameraSpeed = 100.f;
 
 	int archerRunLeftAnimationID;
 	int archerRunRightAnimationID;

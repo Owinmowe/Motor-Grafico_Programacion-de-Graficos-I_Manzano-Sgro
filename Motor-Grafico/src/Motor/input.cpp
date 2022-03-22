@@ -10,7 +10,7 @@ namespace engine
 
 	std::list<int> currentKeysDown;
 	glm::vec2 mousePosition;
-	glm::vec2 offsetMousePosition;
+	glm::vec2 deltaMousePosition;
 	bool firstMouse = false;
 	const float sensitivity = 0.1f;
 
@@ -50,8 +50,8 @@ namespace engine
 	}
 	glm::vec2 input::getDeltaMousePosition()
 	{
-		glm::vec2 previousOffset = offsetMousePosition;
-		offsetMousePosition = glm::vec2(0, 0);
+		glm::vec2 previousOffset = deltaMousePosition;
+		deltaMousePosition = glm::vec2(0, 0);
 		return previousOffset;
 	}
 	void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -82,7 +82,7 @@ namespace engine
 
 		offsetPosX *= sensitivity;
 		offsetPosY *= sensitivity;
-		offsetMousePosition.x = offsetPosX;
-		offsetMousePosition.y = offsetPosY;
+		deltaMousePosition.x = offsetPosX;
+		deltaMousePosition.y = offsetPosY;
 	}
 }
