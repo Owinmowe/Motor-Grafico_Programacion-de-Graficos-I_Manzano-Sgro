@@ -17,20 +17,16 @@ namespace engine
 
 		glm::vec3 camStartingPos = { 0, 0, 250 };
 
+		positionVector = camStartingPos;
 
 		yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 		pitch = 0.0f;
 
 		updateCameraVectors();
-
-		setCameraTransform(camStartingPos, frontVector, rightVector, upVector);
+		updateCameraTransform();
 	}
-	void camera::setCameraTransform(glm::vec3 position, glm::vec3 front, glm::vec3 right, glm::vec3 up)
+	void camera::updateCameraTransform()
 	{
-		positionVector = position;
-		frontVector = front;
-		upVector = up;
-		rightVector = right;
 		viewMatrix = glm::lookAt(positionVector, positionVector + frontVector, upVector);
 		currentRenderer->setViewMatrix(viewMatrix);
 	}
@@ -50,7 +46,7 @@ namespace engine
 	{
 		positionVector += movePosition;
 		updateCameraVectors();
-		setCameraTransform(positionVector, frontVector, rightVector, upVector);
+		updateCameraTransform();
 	}
 	void camera::moveCameraByLocalVector(glm::vec3 movePosition)
 	{
@@ -58,28 +54,6 @@ namespace engine
 		positionVector += upVector * movePosition.y;
 		positionVector -= frontVector * movePosition.z;
 		updateCameraVectors();
-		setCameraTransform(positionVector, frontVector, rightVector, upVector);
-	}
-	void camera::changeCameraAim(float xoffset, float yoffset, bool constrainPitch)
-	{
-		//std::cout << "xoffset: " << xoffset << std::endl;
-		//std::cout << "yoffset: " << yoffset << std::endl;
-		yaw += xoffset;
-		pitch += yoffset;
-
-		if(constrainPitch)
-		{
-			if (pitch > 89.0f)
-				pitch = 89.0f;
-			if (pitch < -89.0f)
-				pitch = -89.0f;
-		}
-
-		updateCameraVectors();
-		setCameraTransform(positionVector, frontVector, rightVector, upVector);
-	}
-	camera::~camera()
-	{
-
+		updateCameraTransform();
 	}
 }

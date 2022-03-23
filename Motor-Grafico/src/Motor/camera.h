@@ -14,10 +14,8 @@ namespace engine
 		camera(renderer* currentRenderer, float fieldOfView, float nearClip, float farClip);
 		void moveCameraByGlobalVector(glm::vec3 movePosition);
 		void moveCameraByLocalVector(glm::vec3 movePosition);
-		void changeCameraAim(float xoffset, float yoffset, bool constrainPitch = true);
-		~camera();
-	private:
-		void setCameraTransform(glm::vec3 position, glm::vec3 front, glm::vec3 right, glm::vec3 up);
+	protected:
+		virtual void updateCameraTransform();
 		void updateCameraVectors();
 		glm::mat4 viewMatrix;
 		glm::mat4 projectionMatrix;

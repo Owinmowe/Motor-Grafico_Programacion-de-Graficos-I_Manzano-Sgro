@@ -12,6 +12,7 @@ game::game()
 	//triangle3 = nullptr;
 	//quad = nullptr;
 	firstPersonCamera = nullptr;
+	thirdPersonCamera = nullptr;
 	tileMap = nullptr;
 	colors[0] = glm::vec4(0, 0, 0, 0);
 	colors[1] = glm::vec4(1, 0, 0, 1);
@@ -139,36 +140,50 @@ void game::update()
 		archer->stopAllAnimations();
 	}
 
-	if(isKeyPressed(ENGINE_KEY_LEFT))
+	if(isKeyDown(ENGINE_KEY_C))
 	{
-		glm::vec3 movement = { engine::time::getDeltaTime() * -cameraSpeed, 0, 0 };
-		firstPersonCamera->moveCameraByLocalVector(movement);
-	}
-	else if (isKeyPressed(ENGINE_KEY_RIGHT))
-	{
-		glm::vec3 movement = { engine::time::getDeltaTime() * cameraSpeed, 0, 0 };
-		firstPersonCamera->moveCameraByLocalVector(movement);
-	}
-	if (isKeyPressed(ENGINE_KEY_UP))
-	{
-		glm::vec3 movement = { 0, 0 , engine::time::getDeltaTime() * -cameraSpeed };
-		firstPersonCamera->moveCameraByLocalVector(movement);
-	}
-	else if (isKeyPressed(ENGINE_KEY_DOWN))
-	{
-		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * cameraSpeed };
-		firstPersonCamera->moveCameraByLocalVector(movement);
+		isCameraFirstPerson = !isCameraFirstPerson;
 	}
 
 	glm::vec2 mousePositionDelta = getDeltaMousePosition();
-	firstPersonCamera->changeCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
+
+	if(isCameraFirstPerson)
+	{
+		if (isKeyPressed(ENGINE_KEY_LEFT))
+		{
+			glm::vec3 movement = { engine::time::getDeltaTime() * -cameraSpeed, 0, 0 };
+			firstPersonCamera->moveCameraByLocalVector(movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_RIGHT))
+		{
+			glm::vec3 movement = { engine::time::getDeltaTime() * cameraSpeed, 0, 0 };
+			firstPersonCamera->moveCameraByLocalVector(movement);
+		}
+		if (isKeyPressed(ENGINE_KEY_UP))
+		{
+			glm::vec3 movement = { 0, 0 , engine::time::getDeltaTime() * -cameraSpeed };
+			firstPersonCamera->moveCameraByLocalVector(movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_DOWN))
+		{
+			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * cameraSpeed };
+			firstPersonCamera->moveCameraByLocalVector(movement);
+		}
+		firstPersonCamera->offsetCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
+	}
+	else
+	{
+		thirdPersonCamera->updateCamera(archer->getPos(), mousePositionDelta, 100.f, archer->getRot().y);
+	}
 
 }
 
 void game::init()
 {
 	lockCursor();
-	firstPersonCamera = new engine::camera(currentRenderer, 45.f, .1f, 500.f);
+	firstPersonCamera = new engine::firstPersonCamera(currentRenderer, 45.f, .1f, 500.f);
+	thirdPersonCamera = new engine::thirdPersonCamera(currentRenderer, 45.f, .1f, 500.f);
+	isCameraFirstPerson = true;
 	tileMap = new engine::tileMap(currentRenderer);
 
 	
@@ -269,7 +284,6 @@ void game::init()
 
 void game::deInit()
 {
-	delete firstPersonCamera;
 	//imageCampus->deinit();
 	//delete imageCampus;
 	//container->deinit();
@@ -278,6 +292,8 @@ void game::deInit()
 	//delete awesomeface;
 	archer->deinit();
 	delete archer;
+	delete firstPersonCamera;
+	delete thirdPersonCamera;
 	//delete triangle;
 	//delete triangle2;
 	//delete triangle3;

@@ -28,7 +28,9 @@ private:
 	//engine::shape* triangle2;
 	//engine::shape* triangle3;
 	//engine::shape* quad;
-	engine::camera* firstPersonCamera;
+	engine::firstPersonCamera* firstPersonCamera;
+	engine::thirdPersonCamera* thirdPersonCamera;
+	bool isCameraFirstPerson;
 	engine::tileMap* tileMap;
 	float cameraSpeed = 100.f;
 
