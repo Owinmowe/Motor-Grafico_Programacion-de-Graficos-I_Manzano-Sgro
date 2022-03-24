@@ -37,6 +37,7 @@ namespace engine
 	}
 	sprite::~sprite()
 	{
+
 	}
 	void sprite::draw()
 	{

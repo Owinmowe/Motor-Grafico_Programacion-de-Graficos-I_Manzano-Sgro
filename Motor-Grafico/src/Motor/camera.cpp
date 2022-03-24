@@ -6,9 +6,6 @@ namespace engine
 	camera::camera(renderer* currentRenderer, float fieldOfView, float nearClip, float farClip)
 	{
 		this->currentRenderer = currentRenderer;
-
-
-
 		//TODO agregar propiedades/posibilidad de camara ortogonal
 		int currentWidth = currentRenderer->getCurrentWindow()->getWidth();
 		int currentHeight = currentRenderer->getCurrentWindow()->getHeight();

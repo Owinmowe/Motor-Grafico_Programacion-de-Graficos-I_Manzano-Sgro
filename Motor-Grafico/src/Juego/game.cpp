@@ -90,25 +90,25 @@ void game::update()
 	if(isKeyPressed(ENGINE_KEY_W) && isKeyPressed(ENGINE_KEY_A))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed / 2, pos.y + engine::time::getDeltaTime() * runSpeed / 2, pos.z);
+		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z - engine::time::getDeltaTime() * runSpeed / 2);
 		archer->playAnimation(archerRunUpLeftAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_W) && isKeyPressed(ENGINE_KEY_D))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed / 2, pos.y + engine::time::getDeltaTime() * runSpeed / 2, pos.z);
+		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z - engine::time::getDeltaTime() * runSpeed / 2);
 		archer->playAnimation(archerRunUpRightAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_S) && isKeyPressed(ENGINE_KEY_A))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed / 2, pos.y - engine::time::getDeltaTime() * runSpeed / 2, pos.z);
+		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z + engine::time::getDeltaTime() * runSpeed / 2);
 		archer->playAnimation(archerRunDownLeftAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_S) && isKeyPressed(ENGINE_KEY_D))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed / 2, pos.y - engine::time::getDeltaTime() * runSpeed / 2, pos.z);
+		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z + engine::time::getDeltaTime() * runSpeed / 2);
 		archer->playAnimation(archerRunDownRightAnimationID);
 	}
 	else if(isKeyPressed(ENGINE_KEY_A))
@@ -126,13 +126,13 @@ void game::update()
 	else if (isKeyPressed(ENGINE_KEY_W))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x, pos.y + engine::time::getDeltaTime() * runSpeed, pos.z);
+		archer->setPos(pos.x, pos.y, pos.z - engine::time::getDeltaTime() * runSpeed);
 		archer->playAnimation(archerRunUpAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_S))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x, pos.y - engine::time::getDeltaTime() * runSpeed, pos.z);
+		archer->setPos(pos.x, pos.y, pos.z + engine::time::getDeltaTime() * runSpeed);
 		archer->playAnimation(archerRunDownAnimationID);
 	}
 	else
@@ -173,7 +173,7 @@ void game::update()
 	}
 	else
 	{
-		thirdPersonCamera->updateCamera(archer->getPos(), mousePositionDelta, 100.f, archer->getRot().y);
+		thirdPersonCamera->updateCamera(archer->getPos(), mousePositionDelta, 200.f, archer->getRot().y);
 	}
 
 }

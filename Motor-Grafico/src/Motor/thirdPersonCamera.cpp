@@ -11,11 +11,13 @@ namespace engine
 	}
 	void thirdPersonCamera::updateCamera(glm::vec3 targetPosition, glm::vec2 deltaMouse, float distanceToTarget, float targetRotY)
 	{
+
+		angleAroundPlayer += deltaMouse.x;
+		this->yaw = 180 - (targetRotY + angleAroundPlayer);
+
 		this->targetPosition = targetPosition;
 		float horizontalDistance = distanceToTarget * glm::cos(glm::radians(pitch));
 		float verticalDistance = distanceToTarget * glm::sin(glm::radians(pitch));
-
-		angleAroundPlayer += deltaMouse.x;
 
 		float theta = targetRotY + angleAroundPlayer;
 		float offsetX = horizontalDistance * glm::sin(glm::radians(theta));
