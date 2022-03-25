@@ -14,24 +14,12 @@ public:
 	void deInit() override;
 
 private:
-	int currentColorIndex = 0;
-	glm::vec4 nextColor;
-	glm::vec4 colors[colorsArraySize];
-	float t = 0;
-	float rotationSpeed = 0;
-	float timeBetweenChanges = 0;
-	//engine::sprite* imageCampus;
-	//engine::sprite* container;
-	engine::sprite* awesomeface;
 	engine::sprite* archer;
-	//engine::shape* triangle;
-	//engine::shape* triangle2;
-	//engine::shape* triangle3;
-	//engine::shape* quad;
+	engine::sprite* ground;
+	engine::cube* cubeObject;
 	engine::firstPersonCamera* firstPersonCamera;
 	engine::thirdPersonCamera* thirdPersonCamera;
 	bool isCameraFirstPerson;
-	engine::tileMap* tileMap;
 	float cameraSpeed = 100.f;
 
 	int archerRunLeftAnimationID;
@@ -42,5 +30,5 @@ private:
 	int archerRunDownAnimationID;
 	int archerRunDownLeftAnimationID;
 	int archerRunDownRightAnimationID;
-	float runSpeed = 50;
+	float archerRunSpeed = 50;
 };

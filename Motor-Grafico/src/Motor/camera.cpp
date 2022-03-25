@@ -10,7 +10,6 @@ namespace engine
 		int currentWidth = currentRenderer->getCurrentWindow()->getWidth();
 		int currentHeight = currentRenderer->getCurrentWindow()->getHeight();
 		projectionMatrix = glm::perspective(fieldOfView, (float)currentWidth / (float)currentHeight, nearClip, farClip);
-		this->currentRenderer->setProjectionMatrix(projectionMatrix);
 
 		glm::vec3 camStartingPos = { 0, 0, 250 };
 
@@ -25,6 +24,7 @@ namespace engine
 	void camera::updateCameraTransform()
 	{
 		viewMatrix = glm::lookAt(positionVector, positionVector + frontVector, upVector);
+		this->currentRenderer->setProjectionMatrix(projectionMatrix);
 		currentRenderer->setViewMatrix(viewMatrix);
 	}
 	void camera::updateCameraVectors()
@@ -50,6 +50,12 @@ namespace engine
 		positionVector += rightVector * movePosition.x;
 		positionVector += upVector * movePosition.y;
 		positionVector -= frontVector * movePosition.z;
+		updateCameraVectors();
+		updateCameraTransform();
+	}
+	void camera::setCameraPosition(glm::vec3 position)
+	{
+		positionVector = position;
 		updateCameraVectors();
 		updateCameraTransform();
 	}

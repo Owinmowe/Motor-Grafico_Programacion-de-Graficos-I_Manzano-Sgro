@@ -43,16 +43,19 @@ namespace engine
 	}
 	void entity::setRot(glm::vec3 rot)
 	{
-		setRotX(rot.x);
-		setRotY(rot.y);
-		setRotZ(rot.z);
+		setRotX(glm::radians(rot.x));
+		setRotY(glm::radians(rot.y));
+		setRotZ(glm::radians(rot.z));
 		updateModelMatrix();
 	}
 	void entity::setRot(float x, float y, float z)
 	{
-		setRotX(x);
-		setRotY(y);
-		setRotZ(z);
+		float randiansX = glm::radians(x);
+		float randiansY = glm::radians(y);
+		float randiansZ = glm::radians(z);
+		setRotX(randiansX);
+		setRotY(randiansY);
+		setRotZ(randiansZ);
 		updateModelMatrix();
 	}
 	void entity::setRotX(float x)
@@ -114,7 +117,11 @@ namespace engine
 	}
 	glm::vec3 entity::getRot()
 	{
-		return v3rot;
+		float degreesX = glm::degrees(v3rot.x);
+		float degreesY = glm::degrees(v3rot.y);
+		float degreesZ = glm::degrees(v3rot.z);
+		glm::vec3 degreeRot = glm::vec3(degreesX, degreesY, degreesZ);
+		return degreeRot;
 	}
 	glm::vec3 entity::getScale()
 	{

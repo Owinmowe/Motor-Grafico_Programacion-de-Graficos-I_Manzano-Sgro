@@ -1,18 +1,27 @@
 #pragma once
 #include "exports.h"
-#include "keycodes.h"
-#include "time.h"
+
+//GLM
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+//GENERAL
+#include "keycodes.h"
+#include "time.h"
+
+//2D
 #include "shape.h"
 #include "sprite.h"
+#include "tileMap.h"
+
+//3D
+#include "cube.h"
+
+//CAMERAS
 #include "camera.h"
 #include "firstPersonCamera.h"
 #include "thirdPersonCamera.h"
-#include "tileMap.h"
-
 
 namespace engine
 {
@@ -27,7 +36,7 @@ namespace engine
 	public:
 		baseGame();
 		~baseGame();
-		// ~ ENGINE ~ Initializes the engine loops, being init(), update(), draw(), deInit(). 
+		// ~ ENGINE ~ Initializes the engine loops, being init(), update(), draw() and deInit(). 
 		void play(int windowSizeX, int windowSizeY, const char* windowName);
 
 		virtual void update() = 0;

@@ -13,7 +13,7 @@ namespace engine
 	{
 
 		angleAroundPlayer += deltaMouse.x;
-		this->yaw = 180 - (targetRotY + angleAroundPlayer);
+		this->yaw = 180 - targetRotY + angleAroundPlayer;
 
 		this->targetPosition = targetPosition;
 		float horizontalDistance = distanceToTarget * glm::cos(glm::radians(pitch));

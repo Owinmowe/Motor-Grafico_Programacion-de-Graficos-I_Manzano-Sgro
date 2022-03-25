@@ -3,30 +3,13 @@
 
 game::game()
 {
-	//imageCampus = nullptr;
-	//container = nullptr;
-	awesomeface = nullptr;
 	archer = nullptr;
-	//triangle = nullptr;
-	//triangle2 = nullptr;
-	//triangle3 = nullptr;
-	//quad = nullptr;
+	ground = nullptr;
+	cubeObject = nullptr;
+
+	isCameraFirstPerson = true;
 	firstPersonCamera = nullptr;
 	thirdPersonCamera = nullptr;
-	tileMap = nullptr;
-	colors[0] = glm::vec4(0, 0, 0, 0);
-	colors[1] = glm::vec4(1, 0, 0, 1);
-	colors[2] = glm::vec4(0, 1, 0, 1);
-	colors[3] = glm::vec4(0, 0, 1, 1);
-	colors[4] = glm::vec4(1, 1, 0, 1);
-	colors[5] = glm::vec4(0, 1, 1, 1);
-	colors[6] = glm::vec4(1, 0, 1, 1);
-	colors[7] = glm::vec4(1, 1, 1, 1);
-	nextColor = colors[4];
-	rotationSpeed = 2;
-	timeBetweenChanges = 1;
-	t = 0;
-	currentColorIndex = 5;
 
 	archerRunLeftAnimationID = 0;
 	archerRunRightAnimationID = 0;
@@ -45,94 +28,60 @@ game::~game()
 
 void game::draw()
 {
-	tileMap->draw();
-	//imageCampus->draw();
-	//container->draw();
-	//awesomeface->draw();
-	//triangle->draw();
-	//triangle2->draw();
-	//triangle3->draw();
-	//quad->draw();
-
-	
 	archer->draw();
+	ground->draw();
+	cubeObject->draw();
 }
 
 void game::update()
 {
-	//t += engine::time::getDeltaTime();
-	//if(t < timeBetweenChanges)
-	//{
-	//	imageCampus->setColor(lerp(imageCampus->getColor(), nextColor, t));
-	//}
-	//else
-	//{
-	//	t = 0;
-	//
-	//	currentColorIndex++;
-	//	if (currentColorIndex == colorsArraySize)
-	//	{
-	//		currentColorIndex = 0;
-	//	}
-	//	nextColor = colors[currentColorIndex];
-	//}
-	//if(isKeyPressed(ENGINE_KEY_R))
-	//{
-	//	float rot = imageCampus->getRot().y + rotationSpeed * engine::time::getDeltaTime();
-	//	imageCampus->setRot(glm::vec3(0, rot, 0));
-	//}
-	//if (isKeyPressed(ENGINE_KEY_T))
-	//{
-	//	float rot = imageCampus->getRot().y - rotationSpeed * engine::time::getDeltaTime();
-	//	imageCampus->setRot(glm::vec3(0, rot, 0));
-	//}
 
 	if(isKeyPressed(ENGINE_KEY_W) && isKeyPressed(ENGINE_KEY_A))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z - engine::time::getDeltaTime() * runSpeed / 2);
+		archer->setPos(pos.x - engine::time::getDeltaTime() * archerRunSpeed / 2, pos.y, pos.z - engine::time::getDeltaTime() * archerRunSpeed / 2);
 		archer->playAnimation(archerRunUpLeftAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_W) && isKeyPressed(ENGINE_KEY_D))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z - engine::time::getDeltaTime() * runSpeed / 2);
+		archer->setPos(pos.x + engine::time::getDeltaTime() * archerRunSpeed / 2, pos.y, pos.z - engine::time::getDeltaTime() * archerRunSpeed / 2);
 		archer->playAnimation(archerRunUpRightAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_S) && isKeyPressed(ENGINE_KEY_A))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z + engine::time::getDeltaTime() * runSpeed / 2);
+		archer->setPos(pos.x - engine::time::getDeltaTime() * archerRunSpeed / 2, pos.y, pos.z + engine::time::getDeltaTime() * archerRunSpeed / 2);
 		archer->playAnimation(archerRunDownLeftAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_S) && isKeyPressed(ENGINE_KEY_D))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed / 2, pos.y, pos.z + engine::time::getDeltaTime() * runSpeed / 2);
+		archer->setPos(pos.x + engine::time::getDeltaTime() * archerRunSpeed / 2, pos.y, pos.z + engine::time::getDeltaTime() * archerRunSpeed / 2);
 		archer->playAnimation(archerRunDownRightAnimationID);
 	}
 	else if(isKeyPressed(ENGINE_KEY_A))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x - engine::time::getDeltaTime() * runSpeed, pos.y, pos.z);
+		archer->setPos(pos.x - engine::time::getDeltaTime() * archerRunSpeed, pos.y, pos.z);
 		archer->playAnimation(archerRunLeftAnimationID);
 	}
 	else if(isKeyPressed(ENGINE_KEY_D))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x + engine::time::getDeltaTime() * runSpeed, pos.y, pos.z);
+		archer->setPos(pos.x + engine::time::getDeltaTime() * archerRunSpeed, pos.y, pos.z);
 		archer->playAnimation(archerRunRightAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_W))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x, pos.y, pos.z - engine::time::getDeltaTime() * runSpeed);
+		archer->setPos(pos.x, pos.y, pos.z - engine::time::getDeltaTime() * archerRunSpeed);
 		archer->playAnimation(archerRunUpAnimationID);
 	}
 	else if (isKeyPressed(ENGINE_KEY_S))
 	{
 		glm::vec3 pos = archer->getPos();
-		archer->setPos(pos.x, pos.y, pos.z + engine::time::getDeltaTime() * runSpeed);
+		archer->setPos(pos.x, pos.y, pos.z + engine::time::getDeltaTime() * archerRunSpeed);
 		archer->playAnimation(archerRunDownAnimationID);
 	}
 	else
@@ -175,61 +124,28 @@ void game::update()
 	{
 		thirdPersonCamera->updateCamera(archer->getPos(), mousePositionDelta, 200.f, archer->getRot().y);
 	}
-
 }
 
 void game::init()
 {
 	lockCursor();
 	firstPersonCamera = new engine::firstPersonCamera(currentRenderer, 45.f, .1f, 500.f);
+	firstPersonCamera->setCameraPosition(glm::vec3(0, 20, 0));
 	thirdPersonCamera = new engine::thirdPersonCamera(currentRenderer, 45.f, .1f, 500.f);
+	thirdPersonCamera->setCameraPosition(glm::vec3(0, 20, 0));
 	isCameraFirstPerson = true;
-	tileMap = new engine::tileMap(currentRenderer);
-
-	
-	if (tileMap->importTileMap("../res/assets/tilemapreal.tmx"))
-	{
-		std::cout << "tilemap loaded";
-	}
-	else
-	{
-		std::cout << "tilemap failed to load";
-	}
-	
-
-	//triangle = new engine::shape(currentRenderer, 3);
-	//triangle->setScale(3, 3, 3);
-	//triangle->setPos(-14, -10, 0);
-	//triangle->setColor(1, 1, 0, 1);
-	//
-	//triangle2 = new engine::shape(currentRenderer, 3);
-	//triangle2->setScale(3, 3, 3);
-	//triangle2->setPos(-17, -10, 0);
-	//triangle2->setColor(1, 1, 0, 1);
-	//
-	//triangle3 = new engine::shape(currentRenderer, 3);
-	//triangle3->setScale(3, 3, 3);
-	//triangle3->setPos(-15.5, -7, 0);
-	//triangle3->setColor(1, 1, 0, 1);
-	//
-	//quad = new engine::shape(currentRenderer, 4);
-	//quad->setScale(5, 5, 5);
-	//quad->setPos(15, -10, 0);
-	//quad->setColor(0, 1, 1, 1);
-	//
-	//imageCampus = new engine::sprite(currentRenderer, "../res/assets/textures/Image Campus.png", true);
-	//imageCampus->setScale(glm::vec3(30, 20, 10));
-	//imageCampus->setPos(glm::vec3(0, -9.f, -.1f));
-	//
-	//container = new engine::sprite(currentRenderer, "../res/assets/textures/container.jpg", true);
-	//container->setScale(glm::vec3(10, 10, 10));
-	//container->setPos(glm::vec3(-15, 0, 0));
-	//
-	//awesomeface = new engine::sprite(currentRenderer, "../res/assets/textures/awesomeface.png", true);
-	//awesomeface->setScale(glm::vec3(32, 32, 1));
-	//awesomeface->setPos(glm::vec3(-80, 0, 0));
 
 	archer = new engine::sprite(currentRenderer, "../res/assets/textures/Atlas Sprites/archerFullAtlas.png", false);
+
+	ground = new engine::sprite(currentRenderer, "../res/assets/textures/Ground.jpg", false);
+	ground->setPos(0, 0, 0);
+	ground->setScale(1000, 1000, 100);
+	ground->setRot(90, 0, 0);
+
+	cubeObject = new engine::cube(currentRenderer);
+	cubeObject->setPos(0, 100, 0);
+	cubeObject->setScale(20, 20, 20);
+	cubeObject->setTexture("../res/assets/textures/container.jpg", false);
 	
 	engine::atlasCutConfig archerRunAtlasConfig;
 
@@ -267,35 +183,22 @@ void game::init()
 	archer->setAnimationFullTime(archerRunDownRightAnimationID, .5f);
 
 	archer->setScale(32, 32, 1);
-	archer->setPos(-80, 20, 0);
+	archer->setPos(0, 10, 0);
 
 	changeClearColor(glm::vec4(0, 0, 0, 1));
-	//changeClearColor(glm::vec4(.25, .25, .5, 1));
-
-	//addCollider(archer, false);
-	//addCollider(awesomeface, false);
-	
-	//addCollider(triangle, false);
-	//addCollider(triangle2, false);
-	//addCollider(triangle3, false);
-	//addCollider(quad, true);
-	//addCollider(container, true);
 }
 
 void game::deInit()
 {
 	//imageCampus->deinit();
 	//delete imageCampus;
-	//container->deinit();
-	//delete container;
-	//awesomeface->deinit();
-	//delete awesomeface;
 	archer->deinit();
 	delete archer;
+	ground->deinit();
+	delete ground;
+	cubeObject->deInit();
+	delete cubeObject;
+
 	delete firstPersonCamera;
 	delete thirdPersonCamera;
-	//delete triangle;
-	//delete triangle2;
-	//delete triangle3;
-	//delete quad;
 }
