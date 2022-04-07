@@ -3,6 +3,7 @@ out vec4 FragColor;
 in vec3 ourColor;
 in vec2 TexCoord;
 
+uniform vec3 lightColor;
 uniform vec3 color = vec3(1.0f, 1.0f, 1.0f);
 uniform float a = 1.0f;
 uniform sampler2D ourTexture;
@@ -15,5 +16,5 @@ void main()
         discard;
     }
 
-    FragColor = texColor * vec4(ourColor.x * color.x, ourColor.y * color.y, ourColor.z * color.z, a);
+    FragColor = texColor * vec4(ourColor.x * color.x * lightColor.x, ourColor.y * color.y * lightColor.y, ourColor.z * color.z * lightColor.z, a);
 }

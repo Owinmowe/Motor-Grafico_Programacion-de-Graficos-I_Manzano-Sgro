@@ -5,9 +5,12 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include <list>
 
 namespace engine
 {
+
+	class light;
 
 	class ENGINE_API renderer
 	{
@@ -33,8 +36,14 @@ namespace engine
 		//TODO Pensar mejor implementacion, probablemente materiales
 		Shader textureShader = Shader("../src/Motor/Shaders/TextureVertex.shader", "../src/Motor/Shaders/TextureFragment.shader");
 		Shader solidShader = Shader("../src/Motor/Shaders/SolidVertex.shader", "../src/Motor/Shaders/SolidFragment.shader");
+		Shader trippyShader = Shader("../src/Motor/Shaders/SolidVertex.shader", "../src/Motor/Shaders/SolidFragmentVariant.shader");
+
+		void addLight(light* light);
+
+		void removeLight(light* light);
 
 	private:
+		std::list<light*> lights;
 		float lastTime = 0;
 		window* currentWindow;
 		glm::vec4 clearColor;

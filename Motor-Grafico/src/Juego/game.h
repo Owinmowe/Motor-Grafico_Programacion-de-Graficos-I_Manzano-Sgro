@@ -19,6 +19,9 @@ private:
 	engine::cube* cubeObject;
 	engine::firstPersonCamera* firstPersonCamera;
 	engine::thirdPersonCamera* thirdPersonCamera;
+	engine::light* light1;
+	engine::light* light2;
+	engine::light* light3;
 	bool isCameraFirstPerson;
 	float cameraSpeed = 100.f;
 

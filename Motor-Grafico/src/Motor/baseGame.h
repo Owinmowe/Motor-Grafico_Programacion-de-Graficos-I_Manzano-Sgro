@@ -17,6 +17,7 @@
 
 //3D
 #include "cube.h"
+#include "light.h"
 
 //CAMERAS
 #include "camera.h"

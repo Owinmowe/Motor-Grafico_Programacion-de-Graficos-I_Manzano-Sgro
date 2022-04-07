@@ -19,6 +19,8 @@ game::game()
 	archerRunDownAnimationID = 0;
 	archerRunDownLeftAnimationID = 0;
 	archerRunDownRightAnimationID = 0;
+
+	light1 = nullptr;
 }
 
 game::~game()
@@ -89,6 +91,11 @@ void game::update()
 		archer->stopAllAnimations();
 	}
 
+	if(isKeyDown(ENGINE_KEY_V))
+	{
+		cubeObject->toggleTextureUse();
+	}
+
 	if(isKeyDown(ENGINE_KEY_C))
 	{
 		isCameraFirstPerson = !isCameraFirstPerson;
@@ -124,6 +131,7 @@ void game::update()
 	{
 		thirdPersonCamera->updateCamera(archer->getPos(), mousePositionDelta, 200.f, archer->getRot().y);
 	}
+	light1->setColor(getRandomColor());
 }
 
 void game::init()
@@ -186,6 +194,9 @@ void game::init()
 	archer->setPos(0, 10, 0);
 
 	changeClearColor(glm::vec4(0, 0, 0, 1));
+
+	light1 = new engine::light(currentRenderer);
+	light1->setColor(.2f, .2f, .2f, 1.0f);
 }
 
 void game::deInit()
