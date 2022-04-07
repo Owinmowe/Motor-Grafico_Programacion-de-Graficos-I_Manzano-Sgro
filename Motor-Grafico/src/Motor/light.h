@@ -13,7 +13,7 @@ namespace engine
 		~light();
 		void draw() override;
 		void setLightDirection(glm::vec3 newDirection);
-		glm::vec3 setLightDirection();
+		glm::vec3 getLightDirection();
 	private:
 		glm::vec3 lightDirection;
 	};

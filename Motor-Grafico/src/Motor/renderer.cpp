@@ -58,14 +58,24 @@ namespace engine
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 		glm::vec3 lightColor = glm::vec3(0, 0, 0);
+		glm::vec3 lightPos = glm::vec3(0, 0, 0);
+		glm::vec3 lightDir = glm::vec3(0, 0, 0);
 		std::list<light*>::iterator it;
 		for (auto const& i : lights) {
 			lightColor.r = i->getColor().r;
 			lightColor.g = i->getColor().g;
 			lightColor.b = i->getColor().b;
+			lightPos = i->getPos();
+			lightDir = i->getLightDirection();
 		}
 		unsigned int lightLoc = glGetUniformLocation(usedShaderID, "lightColor");
 		glUniform3fv(lightLoc, 1, glm::value_ptr(lightColor));
+
+		unsigned int lightPosLoc = glGetUniformLocation(usedShaderID, "lightPosition");
+		glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
+
+		unsigned int lightDirLoc = glGetUniformLocation(usedShaderID, "lightDirection");
+		glUniform3fv(lightDirLoc, 1, glm::value_ptr(lightDir));
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, vertices, GL_UNSIGNED_INT, 0);

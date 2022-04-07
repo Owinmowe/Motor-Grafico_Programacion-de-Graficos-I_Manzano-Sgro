@@ -21,7 +21,7 @@ namespace engine
 	{
 		lightDirection = newDirection;
 	}
-	glm::vec3 light::setLightDirection()
+	glm::vec3 light::getLightDirection()
 	{
 		return lightDirection;
 	}
