@@ -131,7 +131,18 @@ void game::update()
 	{
 		thirdPersonCamera->updateCamera(archer->getPos(), mousePositionDelta, 200.f, archer->getRot().y);
 	}
-	light1->setColor(getRandomColor());
+
+	glm::vec3 direction = light1->getLightDirection();
+	if(isKeyPressed(ENGINE_KEY_K))
+	{
+		direction.y += engine::time::getDeltaTime();
+		light1->setLightDirection(direction);
+	}
+	else if (isKeyPressed(ENGINE_KEY_L))
+	{
+		direction.y -= engine::time::getDeltaTime();
+		light1->setLightDirection(direction);
+	}
 }
 
 void game::init()
@@ -151,10 +162,10 @@ void game::init()
 	ground->setRot(90, 0, 0);
 
 	cubeObject = new engine::cube(currentRenderer);
-	cubeObject->setPos(0, 100, 0);
+	cubeObject->setPos(0, 10, 0);
 	cubeObject->setScale(20, 20, 20);
 	cubeObject->setTexture("../res/assets/textures/container.jpg", false);
-	
+
 	engine::atlasCutConfig archerRunAtlasConfig;
 
 	archerRunAtlasConfig.CutByCount(10, 7, 6, 5, 8);
@@ -196,7 +207,9 @@ void game::init()
 	changeClearColor(glm::vec4(0, 0, 0, 1));
 
 	light1 = new engine::light(currentRenderer);
-	light1->setColor(.2f, .2f, .2f, 1.0f);
+	light1->setColor(1.f, 1.f, 1.f, 1.f);
+	light1->setPos(0.0f, 0.0f, 0.0f);
+	light1->setLightDirection(glm::vec3(0, 0, 0));
 }
 
 void game::deInit()

@@ -36,7 +36,6 @@ namespace engine
 		//TODO Pensar mejor implementacion, probablemente materiales
 		Shader textureShader = Shader("../src/Motor/Shaders/TextureVertex.shader", "../src/Motor/Shaders/TextureFragment.shader");
 		Shader solidShader = Shader("../src/Motor/Shaders/SolidVertex.shader", "../src/Motor/Shaders/SolidFragment.shader");
-		Shader trippyShader = Shader("../src/Motor/Shaders/SolidVertex.shader", "../src/Motor/Shaders/SolidFragmentVariant.shader");
 
 		void addLight(light* light);
 

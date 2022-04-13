@@ -163,8 +163,8 @@ namespace engine
 		};
 		_renderer->createExtraBuffer(bufferPosUVs, 1);
 		_renderer->bindExtraBuffer(bufferPosUVs, UVs, sizeof(UVs), GL_DYNAMIC_DRAW);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(3);
 
 		baseTexture = new textureData(textureImporter::loadTexture(filePathImage, invertImage));
 		useTexture = true;

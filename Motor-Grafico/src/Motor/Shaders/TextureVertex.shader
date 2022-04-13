@@ -11,7 +11,6 @@ uniform mat4 projection = mat4(1.0f);
 out vec3 ourColor;
 out vec3 ourNormal;
 out vec2 TexCoord;
-
 out vec3 fragWorldPos;
 
 void main()
@@ -19,6 +18,6 @@ void main()
     gl_Position = projection * view * model * vec4(aPos, 1.0);
     fragWorldPos = vec3(model * vec4(aPos, 1.0f));
     ourColor = aColor;
-    ourNormal = aNormal;
+    ourNormal = mat3(transpose(inverse(model))) * aNormal; ;
     TexCoord = aTexCoord;
 }

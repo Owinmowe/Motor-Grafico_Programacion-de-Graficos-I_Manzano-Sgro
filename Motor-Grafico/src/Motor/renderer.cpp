@@ -66,16 +66,15 @@ namespace engine
 			lightColor.g = i->getColor().g;
 			lightColor.b = i->getColor().b;
 			lightPos = i->getPos();
-			lightDir = i->getLightDirection();
 		}
-		unsigned int lightLoc = glGetUniformLocation(usedShaderID, "lightColor");
-		glUniform3fv(lightLoc, 1, glm::value_ptr(lightColor));
+		unsigned int lightColorLoc = glGetUniformLocation(usedShaderID, "lightColor");
+		glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
 
 		unsigned int lightPosLoc = glGetUniformLocation(usedShaderID, "lightPosition");
 		glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
 
-		unsigned int lightDirLoc = glGetUniformLocation(usedShaderID, "lightDirection");
-		glUniform3fv(lightDirLoc, 1, glm::value_ptr(lightDir));
+		unsigned int ambientLightLoc = glGetUniformLocation(usedShaderID, "ambientLight");
+		glUniform3fv(ambientLightLoc, 1, glm::value_ptr(lightColor * 0.01f));
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, vertices, GL_UNSIGNED_INT, 0);
