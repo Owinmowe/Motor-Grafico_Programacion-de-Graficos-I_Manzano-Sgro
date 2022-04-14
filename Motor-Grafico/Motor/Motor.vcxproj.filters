@@ -169,13 +169,13 @@
     <None Include="..\src\Motor\Shaders\SolidVertex.shader">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\src\Motor\Shaders\TextureFragment.shader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\src\Motor\Shaders\TextureVertex.shader">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="..\src\Motor\Shaders\SolidFragmentVariant.shader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\Motor\Shaders\3DTextureFragment.shader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\Motor\Shaders\3DTextureVertex.shader">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

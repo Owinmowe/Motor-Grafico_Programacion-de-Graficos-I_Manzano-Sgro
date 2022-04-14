@@ -18,6 +18,6 @@ void main()
     gl_Position = projection * view * model * vec4(aPos, 1.0);
     fragWorldPos = vec3(model * vec4(aPos, 1.0f));
     ourColor = aColor;
-    ourNormal = mat3(transpose(inverse(model))) * aNormal; ;
+    ourNormal = mat3(transpose(inverse(model))) * aNormal;
     TexCoord = aTexCoord;
 }

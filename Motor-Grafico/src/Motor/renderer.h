@@ -34,7 +34,7 @@ namespace engine
 		window* getCurrentWindow();
 
 		//TODO Pensar mejor implementacion, probablemente materiales
-		Shader textureShader = Shader("../src/Motor/Shaders/TextureVertex.shader", "../src/Motor/Shaders/TextureFragment.shader");
+		Shader textureShader = Shader("../src/Motor/Shaders/3DTextureVertex.shader", "../src/Motor/Shaders/3DTextureFragment.shader");
 		Shader solidShader = Shader("../src/Motor/Shaders/SolidVertex.shader", "../src/Motor/Shaders/SolidFragment.shader");
 
 		void addLight(light* light);

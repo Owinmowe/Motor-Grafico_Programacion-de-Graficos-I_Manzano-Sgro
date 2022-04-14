@@ -74,7 +74,7 @@ namespace engine
 		glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
 
 		unsigned int ambientLightLoc = glGetUniformLocation(usedShaderID, "ambientLight");
-		glUniform3fv(ambientLightLoc, 1, glm::value_ptr(lightColor * 0.01f));
+		glUniform3fv(ambientLightLoc, 1, glm::value_ptr(lightColor * 0.1f));
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, vertices, GL_UNSIGNED_INT, 0);
