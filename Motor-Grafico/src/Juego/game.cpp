@@ -92,6 +92,16 @@ void game::update()
 		position.z -= engine::time::getDeltaTime() * 20;
 		light1->setPos(position);
 	}
+	if (isKeyPressed(ENGINE_KEY_U))
+	{
+		position.y += engine::time::getDeltaTime() * 20;
+		light1->setPos(position);
+	}
+	else if (isKeyPressed(ENGINE_KEY_O))
+	{
+		position.y -= engine::time::getDeltaTime() * 20;
+		light1->setPos(position);
+	}
 }
 
 void game::init()
