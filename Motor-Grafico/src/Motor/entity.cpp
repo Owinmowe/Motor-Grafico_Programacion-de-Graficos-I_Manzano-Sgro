@@ -23,6 +23,7 @@ namespace engine
 
 		yaw = -90.0f;
 		pitch = 0.0f;
+		roll = 0.0f;
 
 		alignDirectionVectorsWithRotation();
 		setRotX(pitch);
@@ -69,6 +70,7 @@ namespace engine
 
 		pitch = rot.x;
 		yaw = rot.y;
+		roll = rot.z;
 
 		setRotX(glm::radians(rot.x));
 		setRotY(glm::radians(rot.y));
@@ -80,6 +82,7 @@ namespace engine
 
 		pitch = x;
 		yaw = y;
+		roll = z;
 
 		float randiansX = glm::radians(x);
 		float randiansY = glm::radians(y);

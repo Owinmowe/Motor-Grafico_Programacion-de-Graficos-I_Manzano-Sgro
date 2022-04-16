@@ -25,4 +25,5 @@ private:
 	engine::light* light3;
 	bool isCameraFirstPerson;
 	float cameraSpeed = 100.f;
+	float cubeSpeed = 100.f;
 };

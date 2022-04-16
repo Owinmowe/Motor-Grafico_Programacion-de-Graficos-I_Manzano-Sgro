@@ -59,6 +59,7 @@ namespace engine
 		glm::vec3 upVector;
 		float yaw;
 		float pitch;
+		float roll;
 		
 		void updateModelMatrix();
 		void alignDirectionVectorsWithFront();

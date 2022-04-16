@@ -15,9 +15,6 @@ namespace engine
 
 		v3pos = camStartingPos;
 
-		yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-		pitch = 0.0f;
-
 		updateCameraVectors();
 		updateCameraTransform();
 	}
@@ -42,7 +39,6 @@ namespace engine
 	void camera::moveCameraByGlobalVector(glm::vec3 movePosition)
 	{
 		v3pos += movePosition;
-		updateCameraVectors();
 		updateCameraTransform();
 	}
 	void camera::moveCameraByLocalVector(glm::vec3 movePosition)

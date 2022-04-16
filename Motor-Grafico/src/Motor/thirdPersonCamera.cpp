@@ -31,8 +31,8 @@ namespace engine
 	}
 	void thirdPersonCamera::updateCameraTransform()
 	{
-		glm::vec3 cameraLookAt = targetPosition - v3pos;
-		viewMatrix = glm::lookAt(v3pos, cameraLookAt, upVector);
+		glm::vec3 cameraLookAt = glm::normalize(targetPosition - v3pos);
+		viewMatrix = glm::lookAt(v3pos, v3pos + cameraLookAt, upVector);
 		currentRenderer->setViewMatrix(viewMatrix);
 	}
 }

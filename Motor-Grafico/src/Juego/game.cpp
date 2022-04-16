@@ -78,7 +78,7 @@ void game::update()
 	}
 	else
 	{
-
+		thirdPersonCamera->updateCamera(cubes[0]->getPos(), mousePositionDelta, 250, cubes[0]->getRot().y);
 	}
 
 	glm::vec3 cameraPos = firstPersonCamera->getPos();
@@ -91,6 +91,7 @@ void game::init()
 	lockCursor();
 	firstPersonCamera = new engine::firstPersonCamera(currentRenderer, 45.f, .1f, 1000.f);
 	thirdPersonCamera = new engine::thirdPersonCamera(currentRenderer, 45.f, .1f, 1000.f);
+	thirdPersonCamera->setRot(5, 0, 0);
 	isCameraFirstPerson = true;
 
 	ground = new engine::cube(currentRenderer);
