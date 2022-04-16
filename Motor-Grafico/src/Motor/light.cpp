@@ -5,7 +5,6 @@ namespace engine
 {
 	light::light(renderer* renderer)
 	{
-		lightDirection = glm::vec3(0, 0, 0);
 		_renderer = renderer;
 		_renderer->addLight(this);
 	}
@@ -16,13 +15,5 @@ namespace engine
 	void light::draw()
 	{
 
-	}
-	void light::setLightDirection(glm::vec3 newDirection)
-	{
-		lightDirection = newDirection;
-	}
-	glm::vec3 light::getLightDirection()
-	{
-		return lightDirection;
 	}
 }

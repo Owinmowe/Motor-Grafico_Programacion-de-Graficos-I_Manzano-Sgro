@@ -13,7 +13,7 @@ namespace engine
 
 		glm::vec3 camStartingPos = { 0, 0, 250 };
 
-		positionVector = camStartingPos;
+		v3pos = camStartingPos;
 
 		yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 		pitch = 0.0f;
@@ -23,7 +23,7 @@ namespace engine
 	}
 	void camera::updateCameraTransform()
 	{
-		viewMatrix = glm::lookAt(positionVector, positionVector + frontVector, upVector);
+		viewMatrix = glm::lookAt(v3pos, v3pos + frontVector, upVector);
 		this->currentRenderer->setProjectionMatrix(projectionMatrix);
 		currentRenderer->setViewMatrix(viewMatrix);
 	}
@@ -41,22 +41,20 @@ namespace engine
 	}
 	void camera::moveCameraByGlobalVector(glm::vec3 movePosition)
 	{
-		positionVector += movePosition;
+		v3pos += movePosition;
 		updateCameraVectors();
 		updateCameraTransform();
 	}
 	void camera::moveCameraByLocalVector(glm::vec3 movePosition)
 	{
-		positionVector += rightVector * movePosition.x;
-		positionVector += upVector * movePosition.y;
-		positionVector -= frontVector * movePosition.z;
+		v3pos += rightVector * movePosition.x;
+		v3pos += upVector * movePosition.y;
+		v3pos -= frontVector * movePosition.z;
 		updateCameraVectors();
 		updateCameraTransform();
 	}
-	void camera::setCameraPosition(glm::vec3 position)
+	void camera::draw()
 	{
-		positionVector = position;
-		updateCameraVectors();
-		updateCameraTransform();
+		std::cout << "Draw function not implemented for the camera";
 	}
 }

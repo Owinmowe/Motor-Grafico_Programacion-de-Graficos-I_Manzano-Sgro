@@ -20,6 +20,13 @@ namespace engine
 		updateModelMatrix();
 
 		setColor(glm::vec4(1.0f));
+
+		yaw = -90.0f;
+		pitch = 0.0f;
+
+		alignDirectionVectorsWithRotation();
+		setRotX(pitch);
+		setRotY(yaw);
 	}
 
 	entity::~entity()
@@ -30,6 +37,22 @@ namespace engine
 	void entity::updateModelMatrix()
 	{
 		model = translate * rotateX * rotateY * rotateZ * scale;
+	}
+	void entity::alignDirectionVectorsWithFront()
+	{
+		upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+		rightVector = glm::normalize(glm::cross(frontVector, upVector));
+		upVector = glm::normalize(glm::cross(rightVector, frontVector));
+	}
+	void entity::alignDirectionVectorsWithRotation()
+	{
+		glm::vec3 front;
+		front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		front.y = sin(glm::radians(pitch));
+		front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		frontVector = glm::normalize(front);
+
+		alignDirectionVectorsWithFront();
 	}
 	void entity::setPos(glm::vec3 pos)
 	{
@@ -43,6 +66,10 @@ namespace engine
 	}
 	void entity::setRot(glm::vec3 rot)
 	{
+
+		pitch = rot.x;
+		yaw = rot.y;
+
 		setRotX(glm::radians(rot.x));
 		setRotY(glm::radians(rot.y));
 		setRotZ(glm::radians(rot.z));
@@ -50,6 +77,10 @@ namespace engine
 	}
 	void entity::setRot(float x, float y, float z)
 	{
+
+		pitch = x;
+		yaw = y;
+
 		float randiansX = glm::radians(x);
 		float randiansY = glm::radians(y);
 		float randiansZ = glm::radians(z);
@@ -127,19 +158,21 @@ namespace engine
 	{
 		return v3scale;
 	}
-	void entity::invertX()
+	glm::vec3 entity::GetFrontVector()
 	{
-		setRotY(-3.14169265f);
-		updateModelMatrix();
+		return frontVector;
 	}
-	void entity::invertY()
+	glm::vec3 entity::GetRightVector()
 	{
-		setRotZ(-3.14169265f);
-		updateModelMatrix();
+		return rightVector;
 	}
-	void entity::invertZ()
+	glm::vec3 entity::GetUpVector()
 	{
-		setRotX(-3.14169265f);
-		updateModelMatrix();
+		return upVector;
+	}
+	void entity::SetFrontVector(glm::vec3 newFrontVector)
+	{
+		frontVector = newFrontVector;
+		alignDirectionVectorsWithFront();
 	}
 }

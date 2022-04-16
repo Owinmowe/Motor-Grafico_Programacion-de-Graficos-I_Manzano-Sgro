@@ -66,6 +66,7 @@ namespace engine
 			lightColor.g = i->getColor().g;
 			lightColor.b = i->getColor().b;
 			lightPos = i->getPos();
+			lightDir = i->GetFrontVector();
 		}
 		unsigned int lightColorLoc = glGetUniformLocation(usedShaderID, "lightColor");
 		glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));

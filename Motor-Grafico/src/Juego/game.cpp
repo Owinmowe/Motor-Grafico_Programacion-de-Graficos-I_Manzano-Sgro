@@ -4,7 +4,10 @@
 game::game()
 {
 	ground = nullptr;
-	cubeObject = nullptr;
+	for (int i = 0; i < CUBES_AMOUNT; i++)
+	{
+		cubes[i] = nullptr;
+	}
 
 	isCameraFirstPerson = true;
 	firstPersonCamera = nullptr;
@@ -23,7 +26,12 @@ game::~game()
 void game::draw()
 {
 	ground->draw();
-	cubeObject->draw();
+
+	for (int i = 0; i < CUBES_AMOUNT; i++)
+	{
+		cubes[i]->draw();
+	}
+
 }
 
 void game::update()
@@ -31,7 +39,10 @@ void game::update()
 
 	if(isKeyDown(ENGINE_KEY_V))
 	{
-		cubeObject->toggleTextureUse();
+		for (int i = 0; i < CUBES_AMOUNT; i++)
+		{
+			cubes[i]->toggleTextureUse();
+		}
 	}
 
 	if(isKeyDown(ENGINE_KEY_C))
@@ -70,72 +81,51 @@ void game::update()
 
 	}
 
-	glm::vec3 position = light1->getPos();
-	if(isKeyPressed(ENGINE_KEY_J))
-	{
-		position.x -= engine::time::getDeltaTime() * 20;
-		light1->setPos(position);
-	}
-	else if (isKeyPressed(ENGINE_KEY_L))
-	{
-		position.x += engine::time::getDeltaTime() * 20;
-		light1->setPos(position);
-	}
-
-	if (isKeyPressed(ENGINE_KEY_I))
-	{
-		position.z += engine::time::getDeltaTime() * 20;
-		light1->setPos(position);
-	}
-	else if (isKeyPressed(ENGINE_KEY_K))
-	{
-		position.z -= engine::time::getDeltaTime() * 20;
-		light1->setPos(position);
-	}
-	if (isKeyPressed(ENGINE_KEY_U))
-	{
-		position.y += engine::time::getDeltaTime() * 20;
-		light1->setPos(position);
-	}
-	else if (isKeyPressed(ENGINE_KEY_O))
-	{
-		position.y -= engine::time::getDeltaTime() * 20;
-		light1->setPos(position);
-	}
+	glm::vec3 cameraPos = firstPersonCamera->getPos();
+	light1->setPos(cameraPos);
+	light1->SetFrontVector(firstPersonCamera->GetFrontVector());
 }
 
 void game::init()
 {
 	lockCursor();
 	firstPersonCamera = new engine::firstPersonCamera(currentRenderer, 45.f, .1f, 1000.f);
-	firstPersonCamera->setCameraPosition(glm::vec3(0, 20, 0));
 	thirdPersonCamera = new engine::thirdPersonCamera(currentRenderer, 45.f, .1f, 1000.f);
-	thirdPersonCamera->setCameraPosition(glm::vec3(0, 20, 0));
 	isCameraFirstPerson = true;
 
 	ground = new engine::cube(currentRenderer);
-	ground->setPos(-250, 0, -250);
+	ground->setPos(0, 0, 0);
 	ground->setScale(1000, 1, 1000);
 	ground->setTexture("../res/assets/textures/Ground.jpg", false);
 
-	cubeObject = new engine::cube(currentRenderer);
-	cubeObject->setPos(0, 15.f, 0);
-	cubeObject->setScale(20, 20, 20);
-	cubeObject->setTexture("../res/assets/textures/container.jpg", false);
+
+	for (int i = 0; i < CUBES_AMOUNT; i++)
+	{
+		cubes[i] = new engine::cube(currentRenderer);
+
+		cubes[i]->setPos(-50 * i, 15.f, -50 * i);
+		cubes[i]->setScale(20, 20, 20);
+		cubes[i]->setTexture("../res/assets/textures/container.jpg", false);
+	}
+
 
 	changeClearColor(glm::vec4(0, 0, 0, 1));
 
 	light1 = new engine::light(currentRenderer);
 	light1->setColor(1.f, 1.f, 1.f, 1.f);
-	light1->setLightDirection(glm::vec3(0, 0, 0));
 }
 
 void game::deInit()
 {
 	ground->deInit();
 	delete ground;
-	cubeObject->deInit();
-	delete cubeObject;
+
+	for (int i = 0; i < CUBES_AMOUNT; i++)
+	{
+		cubes[i]->deInit();
+		delete cubes[i];
+	}
+
 
 	delete firstPersonCamera;
 	delete thirdPersonCamera;

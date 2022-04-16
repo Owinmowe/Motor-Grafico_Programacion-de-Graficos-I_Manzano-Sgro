@@ -1,6 +1,8 @@
 #pragma once
 #include "Motor/baseGame.h"
 
+#define CUBES_AMOUNT 25
+
 class game : public engine::baseGame
 {
 public:
@@ -12,8 +14,10 @@ public:
 	void deInit() override;
 
 private:
+
+
 	engine::cube* ground;
-	engine::cube* cubeObject;
+	engine::cube* cubes[CUBES_AMOUNT];
 	engine::firstPersonCamera* firstPersonCamera;
 	engine::thirdPersonCamera* thirdPersonCamera;
 	engine::light* light1;

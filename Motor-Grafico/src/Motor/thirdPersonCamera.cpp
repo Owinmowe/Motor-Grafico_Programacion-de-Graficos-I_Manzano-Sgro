@@ -23,16 +23,16 @@ namespace engine
 		float offsetX = horizontalDistance * glm::sin(glm::radians(theta));
 		float offsetZ = horizontalDistance * glm::cos(glm::radians(theta));
 
-		positionVector.x = this->targetPosition.x - offsetX;
-		positionVector.y = this->targetPosition.y + verticalDistance;
-		positionVector.z = this->targetPosition.z - offsetZ;
+		v3pos.x = this->targetPosition.x - offsetX;
+		v3pos.y = this->targetPosition.y + verticalDistance;
+		v3pos.z = this->targetPosition.z - offsetZ;
 		updateCameraTransform();
 		updateCameraVectors();
 	}
 	void thirdPersonCamera::updateCameraTransform()
 	{
-		glm::vec3 cameraLookAt = targetPosition - positionVector;
-		viewMatrix = glm::lookAt(positionVector, cameraLookAt, upVector);
+		glm::vec3 cameraLookAt = targetPosition - v3pos;
+		viewMatrix = glm::lookAt(v3pos, cameraLookAt, upVector);
 		currentRenderer->setViewMatrix(viewMatrix);
 	}
 }

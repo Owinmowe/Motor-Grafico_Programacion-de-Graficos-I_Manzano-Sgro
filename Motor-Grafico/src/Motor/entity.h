@@ -21,14 +21,17 @@ namespace engine
 		void setScale(float x, float y, float z);
 		void setColor(glm::vec4 color);
 		void setColor(float r, float g, float b, float a);
-		void invertX();
-		void invertY();
-		void invertZ();
 		
 		glm::vec4 getColor();
 		glm::vec3 getPos();
 		glm::vec3 getRot();
 		glm::vec3 getScale();
+
+		glm::vec3 GetFrontVector();
+		glm::vec3 GetRightVector();
+		glm::vec3 GetUpVector();
+
+		void SetFrontVector(glm::vec3 newFrontVector);
 
 		virtual void draw() = 0;
 
@@ -50,8 +53,17 @@ namespace engine
 		glm::vec4 color;
 
 		unsigned int VAO, VBO, EBO, _vertices;
+
+		glm::vec3 rightVector;
+		glm::vec3 frontVector;
+		glm::vec3 upVector;
+		float yaw;
+		float pitch;
 		
 		void updateModelMatrix();
+		void alignDirectionVectorsWithFront();
+		void alignDirectionVectorsWithRotation();
+
 	private:
 		void setRotX(float x);
 		void setRotY(float y);
