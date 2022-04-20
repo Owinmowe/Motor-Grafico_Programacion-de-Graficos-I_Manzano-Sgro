@@ -45,7 +45,7 @@ namespace engine
 		unsigned int texture = getCurrentTextureIDToDraw();
 		glBindTexture(GL_TEXTURE_2D, texture);
 		setShader(texture);
-		_renderer->drawRequest(model, VAO, _vertices, _renderer->textureShader.ID);
+		_renderer->drawRequest(model, VAO, _vertices, _renderer->textureShader.ID, false);
 	}
 	void sprite::modifyBaseTextureCoords(atlasCutConfig config)
 	{

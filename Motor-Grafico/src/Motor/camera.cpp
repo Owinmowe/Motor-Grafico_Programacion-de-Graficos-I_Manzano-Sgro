@@ -23,6 +23,7 @@ namespace engine
 		viewMatrix = glm::lookAt(v3pos, v3pos + frontVector, upVector);
 		this->currentRenderer->setProjectionMatrix(projectionMatrix);
 		currentRenderer->setViewMatrix(viewMatrix);
+		currentRenderer->setCameraPosition(v3pos);
 	}
 	void camera::updateCameraVectors()
 	{

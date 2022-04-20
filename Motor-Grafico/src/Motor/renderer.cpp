@@ -12,12 +12,15 @@ namespace engine
 		viewMatrix = glm::mat4();
 		projectionMatrix = glm::mat4();
 		clearColor = glm::vec4(0, 0, 0, 1);
+		cameraPosition = glm::vec3();
 	}
 	renderer::renderer(window* window)
 	{
 		clearColor = glm::vec4(0, 0, 0, 1);
 
 		currentWindow = window;
+
+		cameraPosition = glm::vec3();
 
 		viewMatrix = glm::mat4(1.0f);
 		//viewMatrix = glm::lookAt(glm::vec3(0, 0, -15), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
@@ -46,7 +49,7 @@ namespace engine
 	{
 		glfwSwapBuffers(currentWindow->getGLFWwindow());
 	}
-	void renderer::drawRequest(glm::mat4 modelMatrix, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID)
+	void renderer::drawRequest(glm::mat4 modelMatrix, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID, bool useLight)
 	{
 		unsigned int modelLoc = glGetUniformLocation(usedShaderID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
@@ -57,25 +60,32 @@ namespace engine
 		unsigned int projectionLoc = glGetUniformLocation(usedShaderID, "projection");
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
-		glm::vec3 lightColor = glm::vec3(0, 0, 0);
-		glm::vec3 lightPos = glm::vec3(0, 0, 0);
-		glm::vec3 lightDir = glm::vec3(0, 0, 0);
-		std::list<light*>::iterator it;
-		for (auto const& i : lights) {
-			lightColor.r = i->getColor().r;
-			lightColor.g = i->getColor().g;
-			lightColor.b = i->getColor().b;
-			lightPos = i->getPos();
-			lightDir = i->GetFrontVector();
+		if(useLight)
+		{
+			glm::vec3 lightColor = glm::vec3(0, 0, 0);
+			glm::vec3 lightPos = glm::vec3(0, 0, 0);
+			glm::vec3 lightDir = glm::vec3(0, 0, 0);
+			std::list<light*>::iterator it;
+			for (auto const& i : lights) {
+				lightColor.r = i->getColor().r;
+				lightColor.g = i->getColor().g;
+				lightColor.b = i->getColor().b;
+				lightPos = i->getPos();
+				lightDir = i->GetFrontVector();
+			}
+			unsigned int lightColorLoc = glGetUniformLocation(usedShaderID, "lightColor");
+			glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
+
+			unsigned int lightPosLoc = glGetUniformLocation(usedShaderID, "lightPosition");
+			glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
+
+			unsigned int ambientLightLoc = glGetUniformLocation(usedShaderID, "ambientLight");
+			glUniform3fv(ambientLightLoc, 1, glm::value_ptr(lightColor * 0.01f));
+
+			unsigned int cameraPosLoc = glGetUniformLocation(usedShaderID, "cameraPos");
+			glUniformMatrix3fv(cameraPosLoc, 1, GL_FALSE, glm::value_ptr(cameraPosition));
 		}
-		unsigned int lightColorLoc = glGetUniformLocation(usedShaderID, "lightColor");
-		glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
 
-		unsigned int lightPosLoc = glGetUniformLocation(usedShaderID, "lightPosition");
-		glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
-
-		unsigned int ambientLightLoc = glGetUniformLocation(usedShaderID, "ambientLight");
-		glUniform3fv(ambientLightLoc, 1, glm::value_ptr(lightColor * 0.1f));
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, vertices, GL_UNSIGNED_INT, 0);
@@ -138,5 +148,9 @@ namespace engine
 	void renderer::removeLight(light* light)
 	{
 		lights.remove(light);
+	}
+	void renderer::setCameraPosition(glm::vec3 newCameraPosition)
+	{
+		cameraPosition = newCameraPosition;
 	}
 }

@@ -23,7 +23,7 @@ namespace engine
 		void createExtraBuffer(unsigned int& buffer, int size);
 		void bindBaseBufferRequest(unsigned int VAO, unsigned int VBO, unsigned int EBO, float* vertices, unsigned int sizeOfVertices, unsigned int* indices, unsigned int sizeOfIndices);
 		void bindExtraBuffer(unsigned int buffer, float* data, unsigned int sizeOfData, unsigned int bufferType);
-		void drawRequest(glm::mat4 model, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID);
+		void drawRequest(glm::mat4 model, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID, bool useLight);
 		void deleteBaseBuffer(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO);
 		void deleteExtraBuffer(unsigned int& buffer, int size);
 		void startDraw();
@@ -41,6 +41,8 @@ namespace engine
 
 		void removeLight(light* light);
 
+		void setCameraPosition(glm::vec3 newCameraPosition);
+
 	private:
 		std::list<light*> lights;
 		float lastTime = 0;
@@ -48,5 +50,6 @@ namespace engine
 		glm::vec4 clearColor;
 		glm::mat4 viewMatrix;
 		glm::mat4 projectionMatrix;
+		glm::vec3 cameraPosition;
 	};
 }

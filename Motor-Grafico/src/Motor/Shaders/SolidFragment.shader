@@ -1,9 +1,9 @@
 #version 330 core
 out vec4 FragColor;
 in vec3 ourColor;
+in vec3 ourNormal;
 
 uniform vec3 color = vec3(1.0f, 1.0f, 1.0f);
-
 uniform float a = 1.0f;
 
 void main()

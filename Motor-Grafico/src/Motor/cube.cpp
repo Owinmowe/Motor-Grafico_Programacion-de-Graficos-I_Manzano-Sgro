@@ -114,7 +114,7 @@ namespace engine
 		unsigned int alphaLoc = glGetUniformLocation(shader->ID, "a");
 		glUniform1fv(alphaLoc, 1, &(color.a));
 
-		_renderer->drawRequest(model, VAO, _vertices, shader->ID);
+		_renderer->drawRequest(model, VAO, _vertices, shader->ID, true);
 	}
 	void cube::toggleTextureUse()
 	{

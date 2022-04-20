@@ -11,6 +11,7 @@ namespace engine
 	public:
 		light(renderer* renderer);
 		~light();
+		void deInit();
 		void draw() override;
 	};
 }

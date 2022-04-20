@@ -14,8 +14,6 @@ game::game()
 	thirdPersonCamera = nullptr;
 
 	light1 = nullptr;
-	light2 = nullptr;
-	light3 = nullptr;
 }
 
 game::~game()
@@ -82,8 +80,47 @@ void game::update()
 	}
 
 	glm::vec3 cameraPos = firstPersonCamera->getPos();
-	light1->setPos(cameraPos);
-	light1->SetFrontVector(firstPersonCamera->GetFrontVector());
+
+	if (isKeyPressed(ENGINE_KEY_A))
+	{
+		glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
+		light1->setPos(light1->getPos() + movement);
+		light1->SetFrontVector(glm::normalize(movement));
+	}
+	else if (isKeyPressed(ENGINE_KEY_D))
+	{
+		glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
+
+		light1->setPos(light1->getPos() + movement);
+		light1->SetFrontVector(glm::normalize(movement));
+	}
+	if (isKeyPressed(ENGINE_KEY_W))
+	{
+		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
+
+		light1->setPos(light1->getPos() + movement);
+		light1->SetFrontVector(glm::normalize(movement));
+	}
+	else if (isKeyPressed(ENGINE_KEY_S))
+	{
+		glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
+
+		light1->setPos(light1->getPos() + movement);
+		light1->SetFrontVector(glm::normalize(movement));
+	}
+	if (isKeyPressed(ENGINE_KEY_Q))
+	{
+		glm::vec3 movement = { 0, engine::time::getDeltaTime() * -lightSpeed, 0 };
+
+		light1->setPos(light1->getPos() + movement);
+	}
+	else if (isKeyPressed(ENGINE_KEY_E))
+	{
+		glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
+
+		light1->setPos(light1->getPos() + movement);
+	}
+	light1->draw();
 }
 
 void game::init()
@@ -113,7 +150,10 @@ void game::init()
 	changeClearColor(glm::vec4(0, 0, 0, 1));
 
 	light1 = new engine::light(currentRenderer);
+
 	light1->setColor(1.f, 1.f, 1.f, 1.f);
+	light1->setPos(0, 200, 0);
+	light1->setScale(20, 20, 20);
 }
 
 void game::deInit()

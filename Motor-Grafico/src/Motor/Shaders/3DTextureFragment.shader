@@ -6,7 +6,7 @@ in vec3 ourColor;
 in vec2 TexCoord;
 in vec3 fragWorldPos;
 
-uniform vec3 viewPos;
+uniform vec3 cameraPos;
 
 float specularStrength = 0.5;
 
@@ -35,9 +35,9 @@ void main()
     vec3 diffuse = diff * lightColor;
 
     //Specular
-    vec3 viewDir = normalize(viewPos - fragWorldPos);
+    vec3 viewDir = normalize(cameraPos - fragWorldPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 64);
     vec3 specular = specularStrength * spec * lightColor;
 
     //Ambient

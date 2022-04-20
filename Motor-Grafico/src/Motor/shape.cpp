@@ -79,7 +79,7 @@ namespace engine
 	{
 		_renderer->solidShader.use();
 		setShader();
-		_renderer->drawRequest(model, VAO, _vertices, _renderer->solidShader.ID);
+		_renderer->drawRequest(model, VAO, _vertices, _renderer->solidShader.ID, false);
 	}
 
 	void shape::setShader()
