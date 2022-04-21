@@ -17,7 +17,6 @@ namespace engine
 		v3rot = glm::vec3(0.0f);
 		v3scale = glm::vec3(1.0f);
 
-		updateModelMatrix();
 
 		setColor(glm::vec4(1.0f));
 
@@ -25,9 +24,7 @@ namespace engine
 		pitch = 0.0f;
 		roll = 0.0f;
 
-		alignDirectionVectorsWithRotation();
-		setRotX(pitch);
-		setRotY(yaw);
+		updateModelMatrix();
 	}
 
 	entity::~entity()

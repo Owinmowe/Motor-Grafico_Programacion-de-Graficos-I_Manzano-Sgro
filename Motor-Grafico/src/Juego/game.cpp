@@ -135,7 +135,7 @@ void game::init()
 	{
 		cubes[i] = new engine::cube(currentRenderer);
 
-		cubes[i]->setPos(-5 * i, 1.5f, -5);
+		cubes[i]->setPos(-25 + i * 2, 1.5f, 50);
 		cubes[i]->setScale(1, 1, 1);
 		cubes[i]->setTexture("../res/assets/textures/container.jpg", false);
 	}
