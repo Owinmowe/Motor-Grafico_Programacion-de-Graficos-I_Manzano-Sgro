@@ -22,6 +22,6 @@ private:
 	engine::thirdPersonCamera* thirdPersonCamera;
 	engine::light* light1;
 	bool isCameraFirstPerson;
-	float cameraSpeed = 100.f;
-	float lightSpeed = 100.f;
+	float cameraSpeed = 10.f;
+	float lightSpeed = 10.f;
 };

@@ -11,10 +11,6 @@ namespace engine
 		int currentHeight = currentRenderer->getCurrentWindow()->getHeight();
 		projectionMatrix = glm::perspective(fieldOfView, (float)currentWidth / (float)currentHeight, nearClip, farClip);
 
-		glm::vec3 camStartingPos = { 0, 0, 250 };
-
-		v3pos = camStartingPos;
-
 		updateCameraVectors();
 		updateCameraTransform();
 	}

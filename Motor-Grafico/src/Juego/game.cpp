@@ -30,6 +30,7 @@ void game::draw()
 		cubes[i]->draw();
 	}
 
+	light1->draw();
 }
 
 void game::update()
@@ -85,28 +86,24 @@ void game::update()
 	{
 		glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
 		light1->setPos(light1->getPos() + movement);
-		light1->SetFrontVector(glm::normalize(movement));
 	}
 	else if (isKeyPressed(ENGINE_KEY_D))
 	{
 		glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
 
 		light1->setPos(light1->getPos() + movement);
-		light1->SetFrontVector(glm::normalize(movement));
 	}
 	if (isKeyPressed(ENGINE_KEY_W))
 	{
 		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
 
 		light1->setPos(light1->getPos() + movement);
-		light1->SetFrontVector(glm::normalize(movement));
 	}
 	else if (isKeyPressed(ENGINE_KEY_S))
 	{
-		glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
+		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightSpeed };
 
 		light1->setPos(light1->getPos() + movement);
-		light1->SetFrontVector(glm::normalize(movement));
 	}
 	if (isKeyPressed(ENGINE_KEY_Q))
 	{
@@ -120,7 +117,6 @@ void game::update()
 
 		light1->setPos(light1->getPos() + movement);
 	}
-	light1->draw();
 }
 
 void game::init()
@@ -128,32 +124,29 @@ void game::init()
 	lockCursor();
 	firstPersonCamera = new engine::firstPersonCamera(currentRenderer, 45.f, .1f, 1000.f);
 	thirdPersonCamera = new engine::thirdPersonCamera(currentRenderer, 45.f, .1f, 1000.f);
-	thirdPersonCamera->setRot(5, 0, 0);
 	isCameraFirstPerson = true;
 
 	ground = new engine::cube(currentRenderer);
 	ground->setPos(0, 0, 0);
-	ground->setScale(1000, 1, 1000);
+	ground->setScale(100, 1, 100);
 	ground->setTexture("../res/assets/textures/Ground.jpg", false);
-
 
 	for (int i = 0; i < CUBES_AMOUNT; i++)
 	{
 		cubes[i] = new engine::cube(currentRenderer);
 
-		cubes[i]->setPos(-50 * i, 15.f, -50 * i);
-		cubes[i]->setScale(20, 20, 20);
+		cubes[i]->setPos(-5 * i, 1.5f, -5);
+		cubes[i]->setScale(1, 1, 1);
 		cubes[i]->setTexture("../res/assets/textures/container.jpg", false);
 	}
-
-
-	changeClearColor(glm::vec4(0, 0, 0, 1));
 
 	light1 = new engine::light(currentRenderer);
 
 	light1->setColor(1.f, 1.f, 1.f, 1.f);
-	light1->setPos(0, 200, 0);
-	light1->setScale(20, 20, 20);
+	light1->setPos(0, 5, 0);
+	light1->setScale(1, 1, 1);
+
+	changeClearColor(glm::vec4(0, 0, 0, 1));
 }
 
 void game::deInit()
@@ -167,7 +160,9 @@ void game::deInit()
 		delete cubes[i];
 	}
 
-
 	delete firstPersonCamera;
 	delete thirdPersonCamera;
+
+	light1->deInit();
+	delete light1;
 }
