@@ -79,24 +79,28 @@ void game::update()
 		{
 			glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
 			light1->setPos(light1->getPos() + movement);
+			light1->SetFrontVector(light1->getPos() + movement);
 		}
 		else if (isKeyPressed(ENGINE_KEY_D))
 		{
 			glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
 
 			light1->setPos(light1->getPos() + movement);
+			light1->SetFrontVector(light1->getPos() + movement);
 		}
 		if (isKeyPressed(ENGINE_KEY_W))
 		{
 			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
 
 			light1->setPos(light1->getPos() + movement);
+			light1->SetFrontVector(light1->getPos() + movement);
 		}
 		else if (isKeyPressed(ENGINE_KEY_S))
 		{
 			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightSpeed };
 
 			light1->setPos(light1->getPos() + movement);
+			light1->SetFrontVector(light1->getPos() + movement);
 		}
 		if (isKeyPressed(ENGINE_KEY_Q))
 		{
@@ -155,8 +159,6 @@ void game::update()
 	}
 
 	glm::vec3 cameraPos = firstPersonCamera->getPos();
-
-
 }
 
 void game::init()

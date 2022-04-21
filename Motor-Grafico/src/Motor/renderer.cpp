@@ -64,14 +64,12 @@ namespace engine
 		{
 			glm::vec3 lightColor = glm::vec3(0, 0, 0);
 			glm::vec3 lightPos = glm::vec3(0, 0, 0);
-			glm::vec3 lightDir = glm::vec3(0, 0, 0);
 			std::list<light*>::iterator it;
 			for (auto const& i : lights) {
 				lightColor.r = i->getColor().r;
 				lightColor.g = i->getColor().g;
 				lightColor.b = i->getColor().b;
 				lightPos = i->getPos();
-				lightDir = i->GetFrontVector();
 			}
 			unsigned int lightColorLoc = glGetUniformLocation(usedShaderID, "lightColor");
 			glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
@@ -83,7 +81,7 @@ namespace engine
 			glUniform3fv(ambientLightLoc, 1, glm::value_ptr(lightColor * 0.01f));
 
 			unsigned int cameraPosLoc = glGetUniformLocation(usedShaderID, "cameraPos");
-			glUniformMatrix3fv(cameraPosLoc, 1, GL_FALSE, glm::value_ptr(cameraPosition));
+			glUniform3fv(cameraPosLoc, 1, glm::value_ptr(cameraPosition));
 		}
 
 
