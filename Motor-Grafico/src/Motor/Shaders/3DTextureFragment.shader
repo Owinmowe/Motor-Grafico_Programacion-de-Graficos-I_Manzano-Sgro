@@ -37,20 +37,23 @@ void main()
     }
 
 
+    //Ambient
+    vec3 ambient = ambientLight * material.ambient;
+
     //Diffuse
     vec3 norm = normalize(ourNormal);
     vec3 lightDir = normalize(lightPosition - fragWorldPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
+    vec3 diffuse = (diff * material.diffuse) * lightColor;
 
     //Specular
     vec3 viewDir = normalize(cameraPos - fragWorldPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 64);
-    vec3 specular = specularStrength * spec * lightColor;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = specularStrength * (spec * material.specular)* lightColor;
 
-    //Ambient
-    vec3 light = (ambientLight + diffuse + specular) * ourColor * color;
+    //light
+    vec3 light = (ambient + diffuse + specular) * ourColor * color;
 
     FragColor = texColor * vec4(light, a);
 }
