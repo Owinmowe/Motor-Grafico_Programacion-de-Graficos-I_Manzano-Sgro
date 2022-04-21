@@ -74,49 +74,89 @@ void game::update()
 			firstPersonCamera->moveCameraByLocalVector(movement);
 		}
 		firstPersonCamera->offsetCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
+
+		if (isKeyPressed(ENGINE_KEY_A))
+		{
+			glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
+			light1->setPos(light1->getPos() + movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_D))
+		{
+			glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
+
+			light1->setPos(light1->getPos() + movement);
+		}
+		if (isKeyPressed(ENGINE_KEY_W))
+		{
+			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
+
+			light1->setPos(light1->getPos() + movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_S))
+		{
+			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightSpeed };
+
+			light1->setPos(light1->getPos() + movement);
+		}
+		if (isKeyPressed(ENGINE_KEY_Q))
+		{
+			glm::vec3 movement = { 0, engine::time::getDeltaTime() * -lightSpeed, 0 };
+
+			light1->setPos(light1->getPos() + movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_E))
+		{
+			glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
+
+			light1->setPos(light1->getPos() + movement);
+		}
+
 	}
 	else
 	{
-		thirdPersonCamera->updateCamera(cubes[0]->getPos(), mousePositionDelta, 250, cubes[0]->getRot().y);
+		thirdPersonCamera->updateCamera(cubes[0]->getPos(), mousePositionDelta, 5, cubes[0]->getRot().y);
+
+		if (isKeyPressed(ENGINE_KEY_A))
+		{
+			glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
+			cubes[0]->setPos(cubes[0]->getPos() + movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_D))
+		{
+			glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
+
+			cubes[0]->setPos(cubes[0]->getPos() + movement);
+		}
+		if (isKeyPressed(ENGINE_KEY_W))
+		{
+			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
+
+			cubes[0]->setPos(cubes[0]->getPos() + movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_S))
+		{
+			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightSpeed };
+
+			cubes[0]->setPos(cubes[0]->getPos() + movement);
+		}
+		if (isKeyPressed(ENGINE_KEY_Q))
+		{
+			glm::vec3 movement = { 0, engine::time::getDeltaTime() * -lightSpeed, 0 };
+
+			cubes[0]->setPos(cubes[0]->getPos() + movement);
+		}
+		else if (isKeyPressed(ENGINE_KEY_E))
+		{
+			glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
+
+			cubes[0]->setPos(cubes[0]->getPos() + movement);
+		}
+
 	}
 
 	glm::vec3 cameraPos = firstPersonCamera->getPos();
 
-	if (isKeyPressed(ENGINE_KEY_A))
-	{
-		glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
-		light1->setPos(light1->getPos() + movement);
-	}
-	else if (isKeyPressed(ENGINE_KEY_D))
-	{
-		glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
 
-		light1->setPos(light1->getPos() + movement);
-	}
-	if (isKeyPressed(ENGINE_KEY_W))
-	{
-		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
-
-		light1->setPos(light1->getPos() + movement);
-	}
-	else if (isKeyPressed(ENGINE_KEY_S))
-	{
-		glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightSpeed };
-
-		light1->setPos(light1->getPos() + movement);
-	}
-	if (isKeyPressed(ENGINE_KEY_Q))
-	{
-		glm::vec3 movement = { 0, engine::time::getDeltaTime() * -lightSpeed, 0 };
-
-		light1->setPos(light1->getPos() + movement);
-	}
-	else if (isKeyPressed(ENGINE_KEY_E))
-	{
-		glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
-
-		light1->setPos(light1->getPos() + movement);
-	}
 }
 
 void game::init()
