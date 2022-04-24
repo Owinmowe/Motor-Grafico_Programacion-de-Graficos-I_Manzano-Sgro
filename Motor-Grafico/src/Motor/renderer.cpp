@@ -69,14 +69,18 @@ namespace engine
 				lightColor = i->getColor();
 				lightPos = i->getPos();
 			}
-			unsigned int lightColorLoc = glGetUniformLocation(usedShaderID, "lightColor");
-			glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
 
-			unsigned int lightPosLoc = glGetUniformLocation(usedShaderID, "lightPosition");
+			unsigned int lightAmbientLoc = glGetUniformLocation(usedShaderID, "light.ambient");
+			glUniform3fv(lightAmbientLoc, 1, glm::value_ptr(lightColor * .2f));
+
+			unsigned int lightDiffuseLoc = glGetUniformLocation(usedShaderID, "light.diffuse");
+			glUniform3fv(lightDiffuseLoc, 1, glm::value_ptr(lightColor * .5f));
+
+			unsigned int lightSpecularLoc = glGetUniformLocation(usedShaderID, "light.specular");
+			glUniform3fv(lightSpecularLoc, 1, glm::value_ptr(lightColor * 1.0f));
+
+			unsigned int lightPosLoc = glGetUniformLocation(usedShaderID, "light.position");
 			glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
-
-			unsigned int ambientLightLoc = glGetUniformLocation(usedShaderID, "ambientLight");
-			glUniform3fv(ambientLightLoc, 1, glm::value_ptr(lightColor * 0.01f));
 
 			unsigned int cameraPosLoc = glGetUniformLocation(usedShaderID, "cameraPos");
 			glUniform3fv(cameraPosLoc, 1, glm::value_ptr(cameraPosition));
