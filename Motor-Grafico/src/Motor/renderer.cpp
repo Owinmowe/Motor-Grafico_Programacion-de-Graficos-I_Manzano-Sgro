@@ -49,7 +49,7 @@ namespace engine
 	{
 		glfwSwapBuffers(currentWindow->getGLFWwindow());
 	}
-	void renderer::drawRequest(glm::mat4 modelMatrix, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID, bool useLight)
+	void renderer::drawRequest(glm::mat4 modelMatrix, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID, bool useLight, material mat)
 	{
 		unsigned int modelLoc = glGetUniformLocation(usedShaderID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
@@ -82,6 +82,18 @@ namespace engine
 
 			unsigned int cameraPosLoc = glGetUniformLocation(usedShaderID, "cameraPos");
 			glUniform3fv(cameraPosLoc, 1, glm::value_ptr(cameraPosition));
+
+			unsigned int ambientLoc = glGetUniformLocation(usedShaderID, "material.ambient");
+			glUniform3fv(ambientLoc, 1, glm::value_ptr(mat.ambient));
+
+			unsigned int diffuseLoc = glGetUniformLocation(usedShaderID, "material.diffuse");
+			glUniform3fv(diffuseLoc, 1, glm::value_ptr(mat.diffuse));
+			
+			unsigned int specularLoc = glGetUniformLocation(usedShaderID, "material.specular");
+			glUniform3fv(specularLoc, 1, glm::value_ptr(mat.specular));
+
+			unsigned int shininessLoc = glGetUniformLocation(usedShaderID, "material.shininess");
+			glUniform1fv(shininessLoc, 1, &(mat.shininess));
 		}
 
 

@@ -2,6 +2,7 @@
 #include "exports.h"
 #include "window.h"
 #include "shader.h"
+#include "material.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -23,7 +24,7 @@ namespace engine
 		void createExtraBuffer(unsigned int& buffer, int size);
 		void bindBaseBufferRequest(unsigned int VAO, unsigned int VBO, unsigned int EBO, float* vertices, unsigned int sizeOfVertices, unsigned int* indices, unsigned int sizeOfIndices);
 		void bindExtraBuffer(unsigned int buffer, float* data, unsigned int sizeOfData, unsigned int bufferType);
-		void drawRequest(glm::mat4 model, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID, bool useLight);
+		void drawRequest(glm::mat4 model, unsigned int VAO, unsigned int vertices, unsigned int usedShaderID, bool useLight, material mat = material());
 		void deleteBaseBuffer(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO);
 		void deleteExtraBuffer(unsigned int& buffer, int size);
 		void startDraw();
