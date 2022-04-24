@@ -5,6 +5,10 @@
 
 namespace engine
 {
+	light::light()
+	{
+		_renderer = nullptr;
+	}
 	light::light(renderer* renderer)
 	{
 		_renderer = renderer;

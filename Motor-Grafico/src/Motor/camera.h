@@ -12,7 +12,6 @@ namespace engine
 		camera(renderer* currentRenderer, float fieldOfView, float nearClip, float farClip);
 		void moveCameraByGlobalVector(glm::vec3 movePosition);
 		void moveCameraByLocalVector(glm::vec3 movePosition);
-		void draw() override;
 	protected:
 		virtual void updateCameraTransform();
 		void updateCameraVectors();

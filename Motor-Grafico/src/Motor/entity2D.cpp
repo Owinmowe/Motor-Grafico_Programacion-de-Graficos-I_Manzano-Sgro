@@ -1,4 +1,5 @@
 #include "entity2D.h"
+#include "renderer.h"
 #include "collisionManager.h"
 #include <math.h>      
 #include <algorithm>
@@ -7,13 +8,28 @@ using namespace std;
 
 namespace engine
 {
+
 	entity2D::entity2D()
 	{
+		_renderer = nullptr;
 		colManager = nullptr;
+		setColor(glm::vec4(1.0f));
 	}
 	entity2D::~entity2D()
 	{
 		if (colManager != NULL) colManager->removeFromCollisionList(this);
+	}
+	void entity2D::setColor(glm::vec4 color)
+	{
+		this->color = color;
+	}
+	void entity2D::setColor(float r, float g, float b, float a)
+	{
+		setColor(glm::vec4(r, g, b, a));
+	}
+	glm::vec4 entity2D::getColor()
+	{
+		return color;
 	}
 	void entity2D::setCollisionManager(collisionManager* colManager)
 	{

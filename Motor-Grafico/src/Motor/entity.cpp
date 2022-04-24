@@ -1,11 +1,9 @@
 #include "entity.h"
-#include "renderer.h"
 
 namespace engine
 {
 	entity::entity()
 	{
-		_renderer = NULL;
 		model = glm::mat4(1.0f);
 		translate = glm::mat4(1.0f);
 		rotateX = glm::mat4(1.0f);
@@ -16,9 +14,6 @@ namespace engine
 		v3pos = glm::vec3(0.0f);
 		v3rot = glm::vec3(0.0f);
 		v3scale = glm::vec3(1.0f);
-
-
-		setColor(glm::vec4(1.0f));
 
 		yaw = -90.0f;
 		pitch = 0.0f;
@@ -129,18 +124,6 @@ namespace engine
 	void entity::setScale(float x, float y, float z)
 	{
 		setScale(glm::vec3(x, y, z));
-	}
-	void entity::setColor(glm::vec4 color)
-	{
-		this->color = color;
-	}
-	void entity::setColor(float r, float g, float b, float a)
-	{
-		color = glm::vec4(r, g, b, a);
-	}
-	glm::vec4 entity::getColor()
-	{
-		return color;
 	}
 	glm::vec3 entity::getPos()
 	{

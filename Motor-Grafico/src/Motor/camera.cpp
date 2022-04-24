@@ -46,8 +46,4 @@ namespace engine
 		updateCameraVectors();
 		updateCameraTransform();
 	}
-	void camera::draw()
-	{
-		std::cout << "Draw function not implemented for the camera";
-	}
 }

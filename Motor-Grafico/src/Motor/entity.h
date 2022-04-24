@@ -6,7 +6,6 @@
 
 namespace engine
 {
-	class renderer;
 
 	class ENGINE_API entity
 	{
@@ -19,10 +18,7 @@ namespace engine
 		void setRot(float x, float y, float z);
 		void setScale(glm::vec3 scale);
 		void setScale(float x, float y, float z);
-		void setColor(glm::vec4 color);
-		void setColor(float r, float g, float b, float a);
-		
-		glm::vec4 getColor();
+
 		glm::vec3 getPos();
 		glm::vec3 getRot();
 		glm::vec3 getScale();
@@ -33,10 +29,7 @@ namespace engine
 
 		void SetFrontVector(glm::vec3 newFrontVector);
 
-		virtual void draw() = 0;
-
 	protected:
-		renderer* _renderer;
 
 		glm::vec3 v3pos;
 		glm::vec3 v3rot;
@@ -52,7 +45,6 @@ namespace engine
 
 		glm::vec4 color;
 
-		unsigned int VAO, VBO, EBO, _vertices;
 
 		glm::vec3 rightVector;
 		glm::vec3 frontVector;

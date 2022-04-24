@@ -1,12 +1,11 @@
-#include "entity.h"
+#include "entity3D.h"
 
 namespace engine
 {
-
 	struct textureData;
 	class Shader;
 
-	class ENGINE_API cube : public entity
+	class ENGINE_API cube : public entity3D
 	{
 	public:
 		cube(renderer* render);
