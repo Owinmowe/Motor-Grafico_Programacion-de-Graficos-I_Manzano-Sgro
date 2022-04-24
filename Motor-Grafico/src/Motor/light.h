@@ -12,7 +12,14 @@ namespace engine
 		light();
 		light(renderer* renderer);
 		~light();
+
+		void setColor(glm::vec3 color);
+		void setColor(float r, float g, float b);
+		glm::vec3 getColor();
+
 		void deInit();
 		void draw() override;
+	private:
+		glm::vec3 lightColor;
 	};
 }

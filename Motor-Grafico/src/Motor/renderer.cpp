@@ -66,9 +66,7 @@ namespace engine
 			glm::vec3 lightPos = glm::vec3(0, 0, 0);
 			std::list<light*>::iterator it;
 			for (auto const& i : lights) {
-				lightColor.r = i->getColor().r;
-				lightColor.g = i->getColor().g;
-				lightColor.b = i->getColor().b;
+				lightColor = i->getColor();
 				lightPos = i->getPos();
 			}
 			unsigned int lightColorLoc = glGetUniformLocation(usedShaderID, "lightColor");

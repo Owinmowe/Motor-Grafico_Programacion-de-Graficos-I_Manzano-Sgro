@@ -43,9 +43,6 @@ namespace engine
 		glm::mat4 rotateZ;
 		glm::mat4 scale;
 
-		glm::vec4 color;
-
-
 		glm::vec3 rightVector;
 		glm::vec3 frontVector;
 		glm::vec3 upVector;

@@ -13,14 +13,13 @@ namespace engine
 		entity3D();
 		~entity3D();
 
-		void setColor(glm::vec4 color);
-		void setColor(float r, float g, float b, float a);
-		glm::vec4 getColor();
+		void setMaterial(material newMat);
+		material getMaterial();
 		virtual void draw() = 0;
 
 	protected:
 		renderer* _renderer;
-		glm::vec4 color;
+
 		unsigned int VAO, VBO, EBO, _vertices;
 		material mat;
 	};

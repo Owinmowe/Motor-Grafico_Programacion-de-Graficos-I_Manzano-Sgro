@@ -6,23 +6,18 @@ namespace engine
 	entity3D::entity3D()
 	{
 		_renderer = nullptr;
-		setColor(glm::vec4(1.0f));
 		mat = material();
 	}
 	entity3D::~entity3D()
 	{
 
 	}
-	void entity3D::setColor(glm::vec4 color)
+	void entity3D::setMaterial(material newMat)
 	{
-		this->color = color;
+		mat = newMat;
 	}
-	void entity3D::setColor(float r, float g, float b, float a)
+	material entity3D::getMaterial()
 	{
-		setColor(glm::vec4(r, g, b, a));
-	}
-	glm::vec4 entity3D::getColor()
-	{
-		return color;
+		return mat;
 	}
 }

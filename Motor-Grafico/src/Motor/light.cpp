@@ -93,15 +93,27 @@ namespace engine
 	{
 		_renderer->deleteBaseBuffer(VAO, VBO, EBO);
 	}
+	void light::setColor(glm::vec3 color)
+	{
+		lightColor = color;
+	}
+	void light::setColor(float r, float g, float b)
+	{
+		setColor(glm::vec3(r, g, b));
+	}
+	glm::vec3 light::getColor()
+	{
+		return lightColor;
+	}
 	void light::draw()
 	{
 		_renderer->solidShader.use();
-		glm::vec3 newColor = glm::vec3(color.r, color.g, color.b);
 		unsigned int colorLoc = glGetUniformLocation(_renderer->solidShader.ID, "color");
-		glUniform3fv(colorLoc, 1, glm::value_ptr(newColor));
+		glUniform3fv(colorLoc, 1, glm::value_ptr(lightColor));
 
+		float alpha = 1.0f;
 		unsigned int alphaLoc = glGetUniformLocation(_renderer->solidShader.ID, "a");
-		glUniform1fv(alphaLoc, 1, &(color.a));
+		glUniform1fv(alphaLoc, 1, &(alpha));
 
 		_renderer->drawRequest(model, VAO, _vertices, _renderer->solidShader.ID, false);
 	}

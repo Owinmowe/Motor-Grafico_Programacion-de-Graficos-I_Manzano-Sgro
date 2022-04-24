@@ -107,14 +107,15 @@ namespace engine
 			shader->use();
 		}
 
-		glm::vec3 newColor = glm::vec3(color.r, color.g, color.b);
+		glm::vec3 newColor = glm::vec3(1, 1, 1);
 		unsigned int colorLoc = glGetUniformLocation(shader->ID, "color");
 		glUniform3fv(colorLoc, 1, glm::value_ptr(newColor));
 
+		float alpha = 1.0f;
 		unsigned int alphaLoc = glGetUniformLocation(shader->ID, "a");
-		glUniform1fv(alphaLoc, 1, &(color.a));
+		glUniform1fv(alphaLoc, 1, &(alpha));
 
-		_renderer->drawRequest(model, VAO, _vertices, shader->ID, true);
+		_renderer->drawRequest(model, VAO, _vertices, shader->ID, true, mat);
 	}
 	void cube::toggleTextureUse()
 	{

@@ -184,7 +184,7 @@ void game::init()
 
 	light1 = new engine::light(currentRenderer);
 
-	light1->setColor(1.f, 1.f, 1.f, 1.f);
+	light1->setColor(1.f, 1.f, 1.f);
 	light1->setPos(0, 5, 0);
 	light1->setScale(1, 1, 1);
 
