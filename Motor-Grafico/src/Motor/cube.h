@@ -18,5 +18,6 @@ namespace engine
 		bool useTexture;
 		unsigned int bufferPosUVs = 0;
 		textureData* baseTexture;
+		textureData* dotTexture;
 	};
 }

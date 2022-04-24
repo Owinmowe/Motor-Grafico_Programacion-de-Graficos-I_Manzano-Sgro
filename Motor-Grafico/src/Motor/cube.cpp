@@ -83,6 +83,10 @@ namespace engine
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
+
+		dotTexture = new textureData(textureImporter::loadTexture("../res/assets/textures/whiteDot.png", false));
+		useTexture = false;
+
 	}
 	cube::~cube()
 	{
@@ -90,32 +94,21 @@ namespace engine
 	}
 	void cube::draw()
 	{
-		Shader* shader;
-		if (useTexture)
-		{
-			shader = &(_renderer->textureShader);
-			shader->use();
-			unsigned int texture = baseTexture->ID;
-			glBindTexture(GL_TEXTURE_2D, texture);
-			unsigned int textureLoc = glGetUniformLocation(shader->ID, "ourTexture");
-			glUniform1f(textureLoc, (GLfloat)texture);
-		}
-		else
-		{
-
-			shader = &(_renderer->solidShader);
-			shader->use();
-		}
+		_renderer->textureShader.use();
+		unsigned int texture = useTexture ? baseTexture->ID : dotTexture->ID;
+		glBindTexture(GL_TEXTURE_2D, texture);
+		unsigned int textureLoc = glGetUniformLocation(_renderer->textureShader.ID, "ourTexture");
+		glUniform1f(textureLoc, (GLfloat)texture);
 
 		glm::vec3 newColor = glm::vec3(1, 1, 1);
-		unsigned int colorLoc = glGetUniformLocation(shader->ID, "color");
+		unsigned int colorLoc = glGetUniformLocation(_renderer->textureShader.ID, "color");
 		glUniform3fv(colorLoc, 1, glm::value_ptr(newColor));
 
 		float alpha = 1.0f;
-		unsigned int alphaLoc = glGetUniformLocation(shader->ID, "a");
+		unsigned int alphaLoc = glGetUniformLocation(_renderer->textureShader.ID, "a");
 		glUniform1fv(alphaLoc, 1, &(alpha));
 
-		_renderer->drawRequest(model, VAO, _vertices, shader->ID, true, mat);
+		_renderer->drawRequest(model, VAO, _vertices, _renderer->textureShader.ID, true, mat);
 	}
 	void cube::toggleTextureUse()
 	{

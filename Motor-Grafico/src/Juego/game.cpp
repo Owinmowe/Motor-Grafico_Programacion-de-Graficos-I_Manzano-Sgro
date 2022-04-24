@@ -9,6 +9,15 @@ game::game()
 		cubes[i] = nullptr;
 	}
 
+	emeraldCube = nullptr;
+	pearlCube = nullptr;
+	bronzeCube = nullptr;
+	goldCube = nullptr;
+	cyanPlasticCube = nullptr;
+	redPlasticCube = nullptr;
+	greenRubberCube = nullptr;
+	yellowRubberCube = nullptr;
+
 	isCameraFirstPerson = true;
 	firstPersonCamera = nullptr;
 	thirdPersonCamera = nullptr;
@@ -29,6 +38,15 @@ void game::draw()
 	{
 		cubes[i]->draw();
 	}
+
+	emeraldCube->draw();
+	pearlCube->draw();
+	bronzeCube->draw();
+	goldCube->draw();
+	cyanPlasticCube->draw();
+	redPlasticCube->draw();
+	greenRubberCube->draw();
+	yellowRubberCube->draw();
 
 	light1->draw();
 }
@@ -181,6 +199,88 @@ void game::init()
 		cubes[i]->setScale(1, 1, 1);
 		cubes[i]->setTexture("../res/assets/textures/container.jpg", false);
 	}
+
+
+	emeraldCube = new engine::cube(currentRenderer);
+	engine::material emeraldMaterial;
+	emeraldMaterial.ambient = glm::vec3(0.0215f, 0.1745f, 0.0215f);
+	emeraldMaterial.diffuse = glm::vec3(0.07568, 0.61424, 0.07568);
+	emeraldMaterial.specular = glm::vec3(0.633, 0.727811, 0.633);
+	emeraldMaterial.shininess = 0.6;
+	emeraldCube->setMaterial(emeraldMaterial);
+	emeraldCube->setPos(8, 4.0f, 0);
+	emeraldCube->setScale(1, 1, 1);
+
+	pearlCube = new engine::cube(currentRenderer);
+	engine::material pearlMaterial;
+	pearlMaterial.ambient = glm::vec3(0.25, 0.20725, 0.20725);
+	pearlMaterial.diffuse = glm::vec3(1, 0.829, 0.829);
+	pearlMaterial.specular = glm::vec3(0.296648, 0.296648, 0.296648);
+	pearlMaterial.shininess = 0.088;
+	pearlCube->setMaterial(pearlMaterial);
+	pearlCube->setPos(6, 4.0f, 0);
+	pearlCube->setScale(1, 1, 1);
+
+	bronzeCube = new engine::cube(currentRenderer);
+	engine::material bronzeMaterial;
+	bronzeMaterial.ambient = glm::vec3(0.2125, 0.1275, 0.054);
+	bronzeMaterial.diffuse = glm::vec3(0.714, 0.4284, 0.18144);
+	bronzeMaterial.specular = glm::vec3(0.393548, 0.271906, 0.166721);
+	bronzeMaterial.shininess = 0.2;
+	bronzeCube->setMaterial(bronzeMaterial);
+	bronzeCube->setPos(4, 4.0f, 0);
+	bronzeCube->setScale(1, 1, 1);
+
+	goldCube = new engine::cube(currentRenderer);
+	engine::material goldMaterial;
+	goldMaterial.ambient = glm::vec3(0.24725, 0.1995, 0.0745);
+	goldMaterial.diffuse = glm::vec3(0.75164, 0.60648, 0.22648);
+	goldMaterial.specular = glm::vec3(0.628281, 0.555802, 0.366065);
+	goldMaterial.shininess = 0.4;
+	goldCube->setMaterial(goldMaterial);
+	goldCube->setPos(2, 4.0f, 0);
+	goldCube->setScale(1, 1, 1);
+
+	cyanPlasticCube = new engine::cube(currentRenderer);
+	engine::material cyanPlasticMaterial;
+	cyanPlasticMaterial.ambient = glm::vec3(0.0, 0.1, 0.06);
+	cyanPlasticMaterial.diffuse = glm::vec3(0.0, 0.50980392, 0.50980392);
+	cyanPlasticMaterial.specular = glm::vec3(0.50196078, 0.50196078, 0.50196078);
+	cyanPlasticMaterial.shininess = 0.25;
+	cyanPlasticCube->setMaterial(cyanPlasticMaterial);
+	cyanPlasticCube->setPos(8, 1.5f, 0);
+	cyanPlasticCube->setScale(1, 1, 1);
+
+	redPlasticCube = new engine::cube(currentRenderer);
+	engine::material redPlasticMaterial;
+	redPlasticMaterial.ambient = glm::vec3(0.0, 0.0, 0.0);
+	redPlasticMaterial.diffuse = glm::vec3(0.5, 0.0, 0.0);
+	redPlasticMaterial.specular = glm::vec3(0.7, 0.6, 0.6);
+	redPlasticMaterial.shininess = 0.25;
+	redPlasticCube->setMaterial(redPlasticMaterial);
+	redPlasticCube->setPos(6, 1.5f, 0);
+	redPlasticCube->setScale(1, 1, 1);
+
+	greenRubberCube = new engine::cube(currentRenderer);
+	engine::material greenRubberMaterial;
+	greenRubberMaterial.ambient = glm::vec3(0.0, 0.05, 0.0);
+	greenRubberMaterial.diffuse = glm::vec3(0.4, 0.5, 0.4);
+	greenRubberMaterial.specular = glm::vec3(0.04, 0.7,	0.04);
+	greenRubberMaterial.shininess = 0.078125;
+	greenRubberCube->setMaterial(greenRubberMaterial);
+	greenRubberCube->setPos(4, 1.5f, 0);
+	greenRubberCube->setScale(1, 1, 1);
+
+	yellowRubberCube = new engine::cube(currentRenderer);
+	engine::material yellowRubberMaterial;
+	yellowRubberMaterial.ambient = glm::vec3(0.05, 0.05, 0.0);
+	yellowRubberMaterial.diffuse = glm::vec3(0.5, 0.5, 0.4);
+	yellowRubberMaterial.specular = glm::vec3(0.7, 0.7,	0.04);
+	yellowRubberMaterial.shininess = 0.078125;
+	yellowRubberCube->setMaterial(yellowRubberMaterial);
+	yellowRubberCube->setPos(2, 1.5f, 0);
+	yellowRubberCube->setScale(1, 1, 1);
+
 
 	light1 = new engine::light(currentRenderer);
 

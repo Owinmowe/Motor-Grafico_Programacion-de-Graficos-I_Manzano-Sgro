@@ -13,8 +13,6 @@ float specularStrength = 0.5;
 uniform vec3 lightColor;
 uniform vec3 lightPosition;
 
-uniform vec3 ambientLight;
-
 uniform vec3 color = vec3(1.0f, 1.0f, 1.0f);
 uniform float a = 1.0f;
 uniform sampler2D ourTexture;
@@ -38,7 +36,7 @@ void main()
 
 
     //Ambient
-    vec3 ambient = ambientLight * material.ambient;
+    vec3 ambient = lightColor * material.ambient;
 
     //Diffuse
     vec3 norm = normalize(ourNormal);
@@ -49,7 +47,7 @@ void main()
     //Specular
     vec3 viewDir = normalize(cameraPos - fragWorldPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess * 128);
     vec3 specular = specularStrength * (spec * material.specular)* lightColor;
 
     //light

@@ -15,9 +15,19 @@ public:
 
 private:
 
-
 	engine::cube* ground;
 	engine::cube* cubes[CUBES_AMOUNT];
+
+	engine::cube* emeraldCube;
+	engine::cube* pearlCube;
+	engine::cube* bronzeCube;
+	engine::cube* goldCube;
+	engine::cube* cyanPlasticCube;
+	engine::cube* redPlasticCube;
+	engine::cube* greenRubberCube;
+	engine::cube* yellowRubberCube;
+
+
 	engine::firstPersonCamera* firstPersonCamera;
 	engine::thirdPersonCamera* thirdPersonCamera;
 	engine::light* light1;
