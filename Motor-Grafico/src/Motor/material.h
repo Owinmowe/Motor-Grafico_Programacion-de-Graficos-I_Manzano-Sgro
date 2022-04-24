@@ -10,7 +10,7 @@ namespace engine
 			ambient = glm::vec3(.1, .1, .1);
 			diffuse = glm::vec3(1, 1, 1);
 			specular = glm::vec3(1, 1, 1);
-			shininess = 32;
+			shininess = 1;
 		}
 
 		glm::vec3 ambient;
