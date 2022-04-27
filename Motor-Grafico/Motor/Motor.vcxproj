@@ -30,6 +30,7 @@
     <ClCompile Include="..\src\Motor\firstPersonCamera.cpp" />
     <ClCompile Include="..\src\Motor\input.cpp" />
     <ClCompile Include="..\src\Motor\light.cpp" />
+    <ClCompile Include="..\src\Motor\material.cpp" />
     <ClCompile Include="..\src\Motor\renderer.cpp" />
     <ClCompile Include="..\src\Motor\shader.cpp" />
     <ClCompile Include="..\src\Motor\shape.cpp" />

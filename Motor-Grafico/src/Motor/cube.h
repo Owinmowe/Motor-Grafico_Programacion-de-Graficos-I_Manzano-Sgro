@@ -13,11 +13,11 @@ namespace engine
 		void draw() override;
 		void deInit();
 		void toggleTextureUse();
-		void setTexture(const char* filePathImage, bool invertImage);
 	private:
-		bool useTexture;
+		void setUVs();
 		unsigned int bufferPosUVs = 0;
-		textureData* baseTexture;
+
+		bool useTexture;
 		textureData* dotTexture;
 	};
 }

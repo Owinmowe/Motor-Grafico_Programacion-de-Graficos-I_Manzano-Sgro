@@ -1,21 +1,35 @@
 #pragma once
+#include "exports.h"
 #include "glm/glm.hpp"
 
 namespace engine
 {
-	struct material
-	{
-		material()
-		{
-			ambient = glm::vec3(.1, .1, .1);
-			diffuse = glm::vec3(1, 1, 1);
-			specular = glm::vec3(1, 1, 1);
-			shininess = 1;
-		}
 
-		glm::vec3 ambient;
-		glm::vec3 diffuse;
-		glm::vec3 specular;
+	class textureData;
+
+	class ENGINE_API material
+	{
+	public:
+		material();
+		~material();
+		void setDiffuseStrenght(glm::vec3 strenght);
+		void setDiffuseMap(const char* path, bool invertVertical);
+
+		void setSpecularStrenght(glm::vec3 strenght);
+		void setSpecularMap(const char* path, bool invertVertical);
+
+		void setAmbientStrenght(glm::vec3 strenght);
+		void setShininess(float shininess);
+	private:
+		glm::vec3 diffuseStrenght;
+		textureData* diffuseMap;
+
+		glm::vec3 specularStrenght;
+		textureData* specularMap;
+
 		float shininess;
+		glm::vec3 ambientStrenght;
+
+		friend class renderer;
 	};
 }

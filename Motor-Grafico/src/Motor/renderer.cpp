@@ -86,13 +86,13 @@ namespace engine
 			glUniform3fv(cameraPosLoc, 1, glm::value_ptr(cameraPosition));
 
 			unsigned int ambientLoc = glGetUniformLocation(usedShaderID, "material.ambient");
-			glUniform3fv(ambientLoc, 1, glm::value_ptr(mat.ambient));
+			glUniform3fv(ambientLoc, 1, glm::value_ptr(mat.ambientStrenght));
 
 			unsigned int diffuseLoc = glGetUniformLocation(usedShaderID, "material.diffuse");
-			glUniform3fv(diffuseLoc, 1, glm::value_ptr(mat.diffuse));
+			glUniform3fv(diffuseLoc, 1, glm::value_ptr(mat.diffuseStrenght));
 			
 			unsigned int specularLoc = glGetUniformLocation(usedShaderID, "material.specular");
-			glUniform3fv(specularLoc, 1, glm::value_ptr(mat.specular));
+			glUniform3fv(specularLoc, 1, glm::value_ptr(mat.specularStrenght));
 
 			unsigned int shininessLoc = glGetUniformLocation(usedShaderID, "material.shininess");
 			glUniform1fv(shininessLoc, 1, &(mat.shininess));

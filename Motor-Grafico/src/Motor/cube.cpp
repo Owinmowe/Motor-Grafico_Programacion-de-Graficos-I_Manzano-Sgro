@@ -14,7 +14,6 @@ namespace engine
 		float* vertex;
 		unsigned int* indices;
 		useTexture = false;
-		baseTexture = nullptr;
 
 		vertex = new float[216]
 		{
@@ -86,7 +85,6 @@ namespace engine
 
 		dotTexture = new textureData(textureImporter::loadTexture("../res/assets/textures/whiteDot.png", false));
 		useTexture = false;
-
 	}
 	cube::~cube()
 	{
@@ -95,10 +93,10 @@ namespace engine
 	void cube::draw()
 	{
 		_renderer->textureShader.use();
-		unsigned int texture = useTexture ? baseTexture->ID : dotTexture->ID;
-		glBindTexture(GL_TEXTURE_2D, texture);
-		unsigned int textureLoc = glGetUniformLocation(_renderer->textureShader.ID, "ourTexture");
-		glUniform1f(textureLoc, (GLfloat)texture);
+		//unsigned int texture = useTexture ? baseTexture->ID : dotTexture->ID;
+		//glBindTexture(GL_TEXTURE_2D, texture);
+		//unsigned int textureLoc = glGetUniformLocation(_renderer->textureShader.ID, "ourTexture");
+		//glUniform1f(textureLoc, (GLfloat)texture);
 
 		glm::vec3 newColor = glm::vec3(1, 1, 1);
 		unsigned int colorLoc = glGetUniformLocation(_renderer->textureShader.ID, "color");
@@ -112,16 +110,16 @@ namespace engine
 	}
 	void cube::toggleTextureUse()
 	{
-		if(baseTexture != nullptr)
-		{
-			useTexture = !useTexture;
-		}
-		else
-		{
-			std::cout << "Can't toggle texture on cube because it doesn't have a texture";
-		}
+		//if(baseTexture != nullptr)
+		//{
+		//	useTexture = !useTexture;
+		//}
+		//else
+		//{
+		//	std::cout << "Can't toggle texture on cube because it doesn't have a texture";
+		//}
 	}
-	void cube::setTexture(const char* filePathImage, bool invertImage)
+	void cube::setUVs()
 	{
 		float UVs[] =
 		{
@@ -159,15 +157,10 @@ namespace engine
 		_renderer->bindExtraBuffer(bufferPosUVs, UVs, sizeof(UVs), GL_DYNAMIC_DRAW);
 		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(3);
-
-		baseTexture = new textureData(textureImporter::loadTexture(filePathImage, invertImage));
-		useTexture = true;
 	}
 	void cube::deInit()
 	{
 		_renderer->deleteBaseBuffer(VAO, VBO, EBO);
 		_renderer->deleteExtraBuffer(bufferPosUVs, 1);
-		glDeleteTextures(1, &baseTexture->ID);
-		delete baseTexture;
 	}
 }
