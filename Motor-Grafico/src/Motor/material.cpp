@@ -35,8 +35,11 @@ namespace engine
 	}
 	void material::setDiffuseMap(const char* path, bool invertVertical)
 	{
-		textureData data = textureImporter::loadTexture(path, invertVertical);
-		diffuseMap = &data;
+		diffuseMap = new textureData(textureImporter::loadTexture(path, invertVertical));
+	}
+	textureData* material::getDiffuseMap()
+	{
+		return diffuseMap;
 	}
 	void material::setSpecularStrenght(glm::vec3 strenght)
 	{
@@ -44,8 +47,11 @@ namespace engine
 	}
 	void material::setSpecularMap(const char* path, bool invertVertical)
 	{
-		textureData data = textureImporter::loadTexture(path, invertVertical);
-		specularMap = &data;
+		specularMap = new textureData(textureImporter::loadTexture(path, invertVertical));
+	}
+	textureData* material::getSpecularMap()
+	{
+		return specularMap;
 	}
 	void material::setAmbientStrenght(glm::vec3 strenght)
 	{

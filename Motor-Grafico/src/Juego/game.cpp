@@ -54,14 +54,6 @@ void game::draw()
 void game::update()
 {
 
-	if(isKeyDown(ENGINE_KEY_V))
-	{
-		for (int i = 0; i < CUBES_AMOUNT; i++)
-		{
-			cubes[i]->toggleTextureUse();
-		}
-	}
-
 	if(isKeyDown(ENGINE_KEY_C))
 	{
 		isCameraFirstPerson = !isCameraFirstPerson;
@@ -186,97 +178,102 @@ void game::init()
 	thirdPersonCamera = new engine::thirdPersonCamera(currentRenderer, 45.f, .1f, 1000.f);
 	isCameraFirstPerson = true;
 
+	engine::material* groundMaterial = new engine::material();
+	groundMaterial->setDiffuseMap("../res/assets/textures/Ground.jpg", false);
 	ground = new engine::cube(currentRenderer);
 	ground->setPos(0, 0, 0);
 	ground->setScale(100, 1, 100);
-	//ground->setTexture("../res/assets/textures/Ground.jpg", false);
+	ground->setMaterial(groundMaterial);
 
+	engine::material* cubesMaterial = new engine::material();
+	cubesMaterial->setDiffuseMap("../res/assets/textures/container2.png", false);
+	cubesMaterial->setSpecularMap("../res/assets/textures/container2_specular.png", false);
 	for (int i = 0; i < CUBES_AMOUNT; i++)
 	{
 		cubes[i] = new engine::cube(currentRenderer);
 
 		cubes[i]->setPos(-25 + i * 2, 1.5f, 50);
 		cubes[i]->setScale(1, 1, 1);
-		//cubes[i]->setTexture("../res/assets/textures/container2.png", false);
+		cubes[i]->setMaterial(cubesMaterial);
 	}
 
 
 	emeraldCube = new engine::cube(currentRenderer);
-	engine::material emeraldMaterial;
-	//emeraldMaterial.ambient = glm::vec3(0.0215f, 0.1745f, 0.0215f);
-	//emeraldMaterial.diffuseStrenght = glm::vec3(0.07568, 0.61424, 0.07568);
-	//emeraldMaterial.specularStrenght = glm::vec3(0.633, 0.727811, 0.633);
-	//emeraldMaterial.shininess = 0.6;
+	engine::material* emeraldMaterial = new engine::material();
+	emeraldMaterial->setAmbientStrenght(glm::vec3(0.0215f, 0.1745f, 0.0215f));
+	emeraldMaterial->setDiffuseStrenght(glm::vec3(0.07568, 0.61424, 0.07568));
+	emeraldMaterial->setSpecularStrenght(glm::vec3(0.633, 0.727811, 0.633));
+	emeraldMaterial->setShininess(0.6);
 	emeraldCube->setMaterial(emeraldMaterial);
 	emeraldCube->setPos(8, 4.0f, 0);
 	emeraldCube->setScale(1, 1, 1);
 
 	pearlCube = new engine::cube(currentRenderer);
-	engine::material pearlMaterial;
-	//pearlMaterial.ambient = glm::vec3(0.25, 0.20725, 0.20725);
-	//pearlMaterial.diffuseStrenght = glm::vec3(1, 0.829, 0.829);
-	//pearlMaterial.specularStrenght = glm::vec3(0.296648, 0.296648, 0.296648);
-	//pearlMaterial.shininess = 0.088;
+	engine::material* pearlMaterial = new engine::material();
+	pearlMaterial->setAmbientStrenght(glm::vec3(0.25, 0.20725, 0.20725));
+	pearlMaterial->setDiffuseStrenght(glm::vec3(1, 0.829, 0.829));
+	pearlMaterial->setSpecularStrenght(glm::vec3(0.296648, 0.296648, 0.296648));
+	pearlMaterial->setShininess(0.088);
 	pearlCube->setMaterial(pearlMaterial);
 	pearlCube->setPos(6, 4.0f, 0);
 	pearlCube->setScale(1, 1, 1);
 
 	bronzeCube = new engine::cube(currentRenderer);
-	engine::material bronzeMaterial;
-	//bronzeMaterial.ambient = glm::vec3(0.2125, 0.1275, 0.054);
-	//bronzeMaterial.diffuseStrenght = glm::vec3(0.714, 0.4284, 0.18144);
-	//bronzeMaterial.specularStrenght = glm::vec3(0.393548, 0.271906, 0.166721);
-	//bronzeMaterial.shininess = 0.2;
+	engine::material* bronzeMaterial = new engine::material();
+	bronzeMaterial->setAmbientStrenght(glm::vec3(0.2125, 0.1275, 0.054));
+	bronzeMaterial->setDiffuseStrenght(glm::vec3(0.714, 0.4284, 0.18144));
+	bronzeMaterial->setSpecularStrenght(glm::vec3(0.393548, 0.271906, 0.166721));
+	bronzeMaterial->setShininess(0.2);
 	bronzeCube->setMaterial(bronzeMaterial);
 	bronzeCube->setPos(4, 4.0f, 0);
 	bronzeCube->setScale(1, 1, 1);
 
 	goldCube = new engine::cube(currentRenderer);
-	engine::material goldMaterial;
-	//goldMaterial.ambient = glm::vec3(0.24725, 0.1995, 0.0745);
-	//goldMaterial.diffuseStrenght = glm::vec3(0.75164, 0.60648, 0.22648);
-	//goldMaterial.specularStrenght = glm::vec3(0.628281, 0.555802, 0.366065);
-	//goldMaterial.shininess = 0.4;
+	engine::material* goldMaterial = new engine::material();
+	goldMaterial->setAmbientStrenght(glm::vec3(0.24725, 0.1995, 0.0745));
+	goldMaterial->setDiffuseStrenght(glm::vec3(0.75164, 0.60648, 0.22648));
+	goldMaterial->setSpecularStrenght(glm::vec3(0.628281, 0.555802, 0.366065));
+	goldMaterial->setShininess(0.4);
 	goldCube->setMaterial(goldMaterial);
 	goldCube->setPos(2, 4.0f, 0);
 	goldCube->setScale(1, 1, 1);
 
 	cyanPlasticCube = new engine::cube(currentRenderer);
-	engine::material cyanPlasticMaterial;
-	//cyanPlasticMaterial.ambient = glm::vec3(0.0, 0.1, 0.06);
-	//cyanPlasticMaterial.diffuseStrenght = glm::vec3(0.0, 0.50980392, 0.50980392);
-	//cyanPlasticMaterial.specularStrenght = glm::vec3(0.50196078, 0.50196078, 0.50196078);
-	//cyanPlasticMaterial.shininess = 0.25;
+	engine::material* cyanPlasticMaterial = new engine::material();
+	cyanPlasticMaterial->setAmbientStrenght(glm::vec3(0.0, 0.1, 0.06));
+	cyanPlasticMaterial->setDiffuseStrenght(glm::vec3(0.0, 0.50980392, 0.50980392));
+	cyanPlasticMaterial->setSpecularStrenght(glm::vec3(0.50196078, 0.50196078, 0.50196078));
+	cyanPlasticMaterial->setShininess(0.25);
 	cyanPlasticCube->setMaterial(cyanPlasticMaterial);
 	cyanPlasticCube->setPos(8, 1.5f, 0);
 	cyanPlasticCube->setScale(1, 1, 1);
 
 	redPlasticCube = new engine::cube(currentRenderer);
-	engine::material redPlasticMaterial;
-	//redPlasticMaterial.ambient = glm::vec3(0.0, 0.0, 0.0);
-	//redPlasticMaterial.diffuseStrenght = glm::vec3(0.5, 0.0, 0.0);
-	//redPlasticMaterial.specularStrenght = glm::vec3(0.7, 0.6, 0.6);
-	//redPlasticMaterial.shininess = 0.25;
+	engine::material* redPlasticMaterial = new engine::material();
+	redPlasticMaterial->setAmbientStrenght(glm::vec3(0.0, 0.0, 0.0));
+	redPlasticMaterial->setDiffuseStrenght(glm::vec3(0.5, 0.0, 0.0));
+	redPlasticMaterial->setSpecularStrenght(glm::vec3(0.7, 0.6, 0.6));
+	redPlasticMaterial->setShininess(0.25);
 	redPlasticCube->setMaterial(redPlasticMaterial);
 	redPlasticCube->setPos(6, 1.5f, 0);
 	redPlasticCube->setScale(1, 1, 1);
 
 	greenRubberCube = new engine::cube(currentRenderer);
-	engine::material greenRubberMaterial;
-	//greenRubberMaterial.ambient = glm::vec3(0.0, 0.05, 0.0);
-	//greenRubberMaterial.diffuseStrenght = glm::vec3(0.4, 0.5, 0.4);
-	//greenRubberMaterial.specularStrenght = glm::vec3(0.04, 0.7,	0.04);
-	//greenRubberMaterial.shininess = 0.078125;
+	engine::material* greenRubberMaterial = new engine::material();
+	greenRubberMaterial->setAmbientStrenght(glm::vec3(0.0, 0.05, 0.0));
+	greenRubberMaterial->setDiffuseStrenght(glm::vec3(0.4, 0.5, 0.4));
+	greenRubberMaterial->setSpecularStrenght(glm::vec3(0.04, 0.7,	0.04));
+	greenRubberMaterial->setShininess(0.078125);
 	greenRubberCube->setMaterial(greenRubberMaterial);
 	greenRubberCube->setPos(4, 1.5f, 0);
 	greenRubberCube->setScale(1, 1, 1);
 
 	yellowRubberCube = new engine::cube(currentRenderer);
-	engine::material yellowRubberMaterial;
-	//yellowRubberMaterial.ambient = glm::vec3(0.05, 0.05, 0.0);
-	//yellowRubberMaterial.diffuseStrenght = glm::vec3(0.5, 0.5, 0.4);
-	//yellowRubberMaterial.specularStrenght = glm::vec3(0.7, 0.7,	0.04);
-	//yellowRubberMaterial.shininess = 0.078125;
+	engine::material* yellowRubberMaterial = new engine::material();
+	yellowRubberMaterial->setAmbientStrenght(glm::vec3(0.05, 0.05, 0.0));
+	yellowRubberMaterial->setDiffuseStrenght(glm::vec3(0.5, 0.5, 0.4));
+	yellowRubberMaterial->setSpecularStrenght(glm::vec3(0.7, 0.7,	0.04));
+	yellowRubberMaterial->setShininess(0.078125);
 	yellowRubberCube->setMaterial(yellowRubberMaterial);
 	yellowRubberCube->setPos(2, 1.5f, 0);
 	yellowRubberCube->setScale(1, 1, 1);

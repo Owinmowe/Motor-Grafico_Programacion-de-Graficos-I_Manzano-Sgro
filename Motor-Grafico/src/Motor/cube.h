@@ -12,12 +12,10 @@ namespace engine
 		~cube();
 		void draw() override;
 		void deInit();
-		void toggleTextureUse();
 	private:
 		void setUVs();
 		unsigned int bufferPosUVs = 0;
 
-		bool useTexture;
 		textureData* dotTexture;
 	};
 }

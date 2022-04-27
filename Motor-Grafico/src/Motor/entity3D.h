@@ -1,11 +1,11 @@
 #pragma once
 #include "exports.h"
-#include "material.h"
 #include "entity.h"
 
 namespace engine
 {
 	class renderer;
+	class material;
 
 	class ENGINE_API entity3D : public entity
 	{
@@ -13,14 +13,14 @@ namespace engine
 		entity3D();
 		~entity3D();
 
-		void setMaterial(material newMat);
-		material getMaterial();
+		void setMaterial(material* newMat);
+		material* getMaterial();
 		virtual void draw() = 0;
 
 	protected:
 		renderer* _renderer;
 
 		unsigned int VAO, VBO, EBO, _vertices;
-		material mat;
+		material* mat;
 	};
 }

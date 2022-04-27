@@ -13,7 +13,6 @@ namespace engine
 
 		float* vertex;
 		unsigned int* indices;
-		useTexture = false;
 
 		vertex = new float[216]
 		{
@@ -84,19 +83,17 @@ namespace engine
 		glEnableVertexAttribArray(2);
 
 		dotTexture = new textureData(textureImporter::loadTexture("../res/assets/textures/whiteDot.png", false));
-		useTexture = false;
+
+		setUVs();
+
 	}
 	cube::~cube()
 	{
-
+		delete dotTexture;
 	}
 	void cube::draw()
 	{
 		_renderer->textureShader.use();
-		//unsigned int texture = useTexture ? baseTexture->ID : dotTexture->ID;
-		//glBindTexture(GL_TEXTURE_2D, texture);
-		//unsigned int textureLoc = glGetUniformLocation(_renderer->textureShader.ID, "ourTexture");
-		//glUniform1f(textureLoc, (GLfloat)texture);
 
 		glm::vec3 newColor = glm::vec3(1, 1, 1);
 		unsigned int colorLoc = glGetUniformLocation(_renderer->textureShader.ID, "color");
@@ -106,18 +103,40 @@ namespace engine
 		unsigned int alphaLoc = glGetUniformLocation(_renderer->textureShader.ID, "a");
 		glUniform1fv(alphaLoc, 1, &(alpha));
 
-		_renderer->drawRequest(model, VAO, _vertices, _renderer->textureShader.ID, true, mat);
-	}
-	void cube::toggleTextureUse()
-	{
-		//if(baseTexture != nullptr)
-		//{
-		//	useTexture = !useTexture;
-		//}
-		//else
-		//{
-		//	std::cout << "Can't toggle texture on cube because it doesn't have a texture";
-		//}
+		if(mat != nullptr)
+		{
+			glActiveTexture(GL_TEXTURE0);
+			unsigned int diffuseTexture = mat->getDiffuseMap() != nullptr ? mat->getDiffuseMap()->ID : dotTexture->ID;
+			glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+			unsigned int diffuseTextureLoc = glGetUniformLocation(_renderer->textureShader.ID, "material.diffuseTexture");
+			glUniform1f(diffuseTextureLoc, (GLfloat)diffuseTexture);
+
+			glActiveTexture(GL_TEXTURE1);
+			unsigned int specularTexture = mat->getSpecularMap() != nullptr ? mat->getSpecularMap()->ID : dotTexture->ID;
+			glBindTexture(GL_TEXTURE_2D, specularTexture);
+			unsigned int specularTextureLoc = glGetUniformLocation(_renderer->textureShader.ID, "material.specularTexture");
+			glUniform1f(specularTextureLoc, (GLfloat)specularTexture);
+
+			_renderer->drawRequest(model, VAO, _vertices, _renderer->textureShader.ID, true, mat);
+		}
+		else
+		{
+
+			glActiveTexture(GL_TEXTURE0);
+			unsigned int diffuseTexture = dotTexture->ID;
+			glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+			unsigned int diffuseTextureLoc = glGetUniformLocation(_renderer->textureShader.ID, "material.diffuseTexture");
+			glUniform1f(diffuseTextureLoc, (GLfloat)diffuseTexture);
+
+			glActiveTexture(GL_TEXTURE1);
+			unsigned int specularTexture = dotTexture->ID;
+			glBindTexture(GL_TEXTURE_2D, specularTexture);
+			unsigned int specularTextureLoc = glGetUniformLocation(_renderer->textureShader.ID, "material.specularTexture");
+			glUniform1f(specularTextureLoc, (GLfloat)specularTexture);
+
+			_renderer->drawRequest(model, VAO, _vertices, _renderer->textureShader.ID, true);
+		}
+
 	}
 	void cube::setUVs()
 	{

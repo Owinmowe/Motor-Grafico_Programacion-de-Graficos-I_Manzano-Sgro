@@ -14,9 +14,11 @@ namespace engine
 		~material();
 		void setDiffuseStrenght(glm::vec3 strenght);
 		void setDiffuseMap(const char* path, bool invertVertical);
+		textureData* getDiffuseMap();
 
 		void setSpecularStrenght(glm::vec3 strenght);
 		void setSpecularMap(const char* path, bool invertVertical);
+		textureData* getSpecularMap();
 
 		void setAmbientStrenght(glm::vec3 strenght);
 		void setShininess(float shininess);
