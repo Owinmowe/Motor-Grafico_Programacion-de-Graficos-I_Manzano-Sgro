@@ -6,7 +6,7 @@ namespace engine
 {
 	material::material()
 	{
-		diffuseStrenght = glm::vec3(1, 1, 1);
+		diffuseStrenght = glm::vec3(.5, .5, .5);
 		diffuseMap = nullptr;
 
 		specularStrenght = glm::vec3(1, 1, 1);
