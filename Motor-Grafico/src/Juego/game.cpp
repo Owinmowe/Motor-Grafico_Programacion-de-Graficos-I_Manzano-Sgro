@@ -85,41 +85,24 @@ void game::update()
 		}
 		firstPersonCamera->offsetCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
 
+		float rotation = engine::time::getDeltaTime() * lightSpeed;
+		glm::vec3 previousRotation = light1->getRot();
+
 		if (isKeyPressed(ENGINE_KEY_A))
 		{
-			glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
-			light1->setPos(light1->getPos() + movement);
-			light1->SetFrontVector(light1->getPos() + movement);
+			light1->setRot(previousRotation.x, previousRotation.y - rotation, previousRotation.z);
 		}
 		else if (isKeyPressed(ENGINE_KEY_D))
 		{
-			glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
-
-			light1->setPos(light1->getPos() + movement);
+			light1->setRot(previousRotation.x, previousRotation.y + rotation, previousRotation.z);
 		}
 		if (isKeyPressed(ENGINE_KEY_W))
 		{
-			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
-
-			light1->setPos(light1->getPos() + movement);
+			light1->setRot(previousRotation.x, previousRotation.y, previousRotation.z + rotation);
 		}
 		else if (isKeyPressed(ENGINE_KEY_S))
 		{
-			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightSpeed };
-
-			light1->setPos(light1->getPos() + movement);
-		}
-		if (isKeyPressed(ENGINE_KEY_Q))
-		{
-			glm::vec3 movement = { 0, engine::time::getDeltaTime() * -lightSpeed, 0 };
-
-			light1->setPos(light1->getPos() + movement);
-		}
-		else if (isKeyPressed(ENGINE_KEY_E))
-		{
-			glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
-
-			light1->setPos(light1->getPos() + movement);
+			light1->setRot(previousRotation.x, previousRotation.y, previousRotation.z - rotation);
 		}
 
 	}
@@ -276,7 +259,7 @@ void game::init()
 	yellowRubberCube->setScale(1, 1, 1);
 
 
-	light1 = new engine::light(currentRenderer);
+	light1 = new engine::directionalLight(currentRenderer);
 
 	light1->setColor(1.f, 1.f, 1.f);
 	light1->setPos(0, 5, 0);

@@ -11,7 +11,7 @@
 namespace engine
 {
 
-	class light;
+	class directionalLight;
 
 	class ENGINE_API renderer
 	{
@@ -39,14 +39,13 @@ namespace engine
 		Shader textureShader = Shader("../src/Motor/Shaders/3DTextureVertex.shader", "../src/Motor/Shaders/3DTextureFragment.shader");
 		Shader solidShader = Shader("../src/Motor/Shaders/SolidVertex.shader", "../src/Motor/Shaders/SolidFragment.shader");
 
-		void addLight(light* light);
-
-		void removeLight(light* light);
+		void addDirectionalLight(directionalLight* light);
 
 		void setCameraPosition(glm::vec3 newCameraPosition);
 
 	private:
-		std::list<light*> lights;
+		void setDirectionalLight(directionalLight* dirLight, int shaderID);
+		directionalLight* dirLight;
 		float lastTime = 0;
 		window* currentWindow;
 		glm::vec4 clearColor;

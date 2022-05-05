@@ -17,7 +17,7 @@
 
 //3D
 #include "cube.h"
-#include "light.h"
+#include "directionalLight.h"
 #include "material.h"
 
 //CAMERAS

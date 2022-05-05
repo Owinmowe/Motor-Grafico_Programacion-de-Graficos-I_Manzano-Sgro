@@ -30,7 +30,7 @@ private:
 
 	engine::firstPersonCamera* firstPersonCamera;
 	engine::thirdPersonCamera* thirdPersonCamera;
-	engine::light* light1;
+	engine::directionalLight* light1;
 	bool isCameraFirstPerson;
 	float cameraSpeed = 10.f;
 	float lightSpeed = 10.f;

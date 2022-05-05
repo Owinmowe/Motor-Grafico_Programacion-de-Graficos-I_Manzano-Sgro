@@ -5,14 +5,11 @@
 
 namespace engine
 {
-	light::light()
-	{
-		_renderer = nullptr;
-	}
 	light::light(renderer* renderer)
 	{
 		_renderer = renderer;
-		_renderer->addLight(this);
+
+		lightColor = glm::vec3(1, 1, 1);
 
 		float* vertex;
 		unsigned int* indices;
@@ -84,10 +81,6 @@ namespace engine
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
-	}
-	light::~light()
-	{
-		_renderer->removeLight(this);
 	}
 	void light::deInit()
 	{

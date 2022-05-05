@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\Motor\camera.cpp" />
     <ClCompile Include="..\src\Motor\collisionManager.cpp" />
     <ClCompile Include="..\src\Motor\cube.cpp" />
+    <ClCompile Include="..\src\Motor\directionalLight.cpp" />
     <ClCompile Include="..\src\Motor\entity.cpp" />
     <ClCompile Include="..\src\Motor\entity2D.cpp" />
     <ClCompile Include="..\src\Motor\entity3D.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="..\src\Motor\camera.h" />
     <ClInclude Include="..\src\Motor\collisionManager.h" />
     <ClInclude Include="..\src\Motor\cube.h" />
+    <ClInclude Include="..\src\Motor\directionalLight.h" />
     <ClInclude Include="..\src\Motor\entity.h" />
     <ClInclude Include="..\src\Motor\entity2D.h" />
     <ClInclude Include="..\src\Motor\entity3D.h" />

@@ -2,7 +2,7 @@
 
 #include "glew.h"
 #include "glfw3.h"
-#include "light.h"
+#include "directionalLight.h"
 
 namespace engine
 {
@@ -64,11 +64,10 @@ namespace engine
 		{
 			glm::vec3 lightColor = glm::vec3(0, 0, 0);
 			glm::vec3 lightPos = glm::vec3(0, 0, 0);
-			std::list<light*>::iterator it;
-			for (auto const& i : lights) {
-				lightColor = i->getColor();
-				lightPos = i->getPos();
-			}
+
+			lightColor = dirLight->getColor();
+			lightPos = dirLight->getPos();
+		
 
 			unsigned int lightAmbientLoc = glGetUniformLocation(usedShaderID, "light.ambient");
 			glUniform3fv(lightAmbientLoc, 1, glm::value_ptr(lightColor * .2f));
@@ -117,25 +116,8 @@ namespace engine
 
 		if(useLight)
 		{
-			glm::vec3 lightColor = glm::vec3(0, 0, 0);
-			glm::vec3 lightPos = glm::vec3(0, 0, 0);
-			std::list<light*>::iterator it;
-			for (auto const& i : lights) {
-				lightColor = i->getColor();
-				lightPos = i->getPos();
-			}
-
-			unsigned int lightAmbientLoc = glGetUniformLocation(usedShaderID, "light.ambient");
-			glUniform3fv(lightAmbientLoc, 1, glm::value_ptr(lightColor * .2f));
-
-			unsigned int lightDiffuseLoc = glGetUniformLocation(usedShaderID, "light.diffuse");
-			glUniform3fv(lightDiffuseLoc, 1, glm::value_ptr(lightColor * .5f));
-
-			unsigned int lightSpecularLoc = glGetUniformLocation(usedShaderID, "light.specular");
-			glUniform3fv(lightSpecularLoc, 1, glm::value_ptr(lightColor * 1.0f));
-
-			unsigned int lightPosLoc = glGetUniformLocation(usedShaderID, "light.position");
-			glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
+			
+			setDirectionalLight(dirLight, usedShaderID);
 
 			unsigned int cameraPosLoc = glGetUniformLocation(usedShaderID, "cameraPos");
 			glUniform3fv(cameraPosLoc, 1, glm::value_ptr(cameraPosition));
@@ -208,16 +190,29 @@ namespace engine
 	{
 		return currentWindow;
 	}
-	void renderer::addLight(light* light)
+	void renderer::addDirectionalLight(directionalLight* light)
 	{
-		lights.push_back(light);
-	}
-	void renderer::removeLight(light* light)
-	{
-		lights.remove(light);
+		dirLight = light;
 	}
 	void renderer::setCameraPosition(glm::vec3 newCameraPosition)
 	{
 		cameraPosition = newCameraPosition;
+	}
+	void renderer::setDirectionalLight(directionalLight* dirLight, int shaderID)
+	{
+		glm::vec3 lightColor = dirLight->getColor();
+		glm::vec3 lightDir = dirLight->GetFrontVector();
+
+		unsigned int lightAmbientLoc = glGetUniformLocation(shaderID, "directionalLight.ambient");
+		glUniform3fv(lightAmbientLoc, 1, glm::value_ptr(lightColor * .2f));
+
+		unsigned int lightDiffuseLoc = glGetUniformLocation(shaderID, "directionalLight.diffuse");
+		glUniform3fv(lightDiffuseLoc, 1, glm::value_ptr(lightColor * .5f));
+
+		unsigned int lightSpecularLoc = glGetUniformLocation(shaderID, "directionalLight.specular");
+		glUniform3fv(lightSpecularLoc, 1, glm::value_ptr(lightColor * 1.0f));
+
+		unsigned int lightDirLoc = glGetUniformLocation(shaderID, "directionalLight.direction");
+		glUniform3fv(lightDirLoc, 1, glm::value_ptr(lightDir));
 	}
 }

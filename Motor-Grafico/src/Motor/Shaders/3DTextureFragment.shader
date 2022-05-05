@@ -8,15 +8,14 @@ in vec3 fragWorldPos;
 
 uniform vec3 cameraPos;
 
-struct Light {
-    vec3 position;
-
+struct DirectionalLight {
+    vec3 direction;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
 };
 
-uniform Light light;
+uniform DirectionalLight directionalLight;
 
 uniform vec3 color = vec3(1.0f, 1.0f, 1.0f);
 uniform float a = 1.0f;
@@ -36,19 +35,19 @@ void main()
 {
 
     //Ambient
-    vec3 ambient = light.ambient * material.ambient;
+    vec3 ambient = directionalLight.ambient * material.ambient;
 
     //Diffuse
     vec3 norm = normalize(ourNormal);
-    vec3 lightDir = normalize(light.position - fragWorldPos);
+    vec3 lightDir = normalize(-directionalLight.direction);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * material.diffuse * light.diffuse * texture(material.diffuseTexture, TexCoord).rgb;
+    vec3 diffuse = diff * material.diffuse * directionalLight.diffuse * texture(material.diffuseTexture, TexCoord).rgb;
 
     //Specular
     vec3 viewDir = normalize(cameraPos - fragWorldPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess * 128);
-    vec3 specular = spec * material.specular * light.specular * texture(material.specularTexture, TexCoord).rgb;
+    vec3 specular = spec * material.specular * directionalLight.specular * texture(material.specularTexture, TexCoord).rgb;
 
     //light
     vec3 result = ambient + diffuse + specular;

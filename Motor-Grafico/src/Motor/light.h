@@ -6,12 +6,10 @@ namespace engine
 
 	class renderer;
 
-	class ENGINE_API light : public entity3D
+	class ENGINE_API light abstract : public entity3D
 	{
 	public:
-		light();
 		light(renderer* renderer);
-		~light();
 
 		void setColor(glm::vec3 color);
 		void setColor(float r, float g, float b);
