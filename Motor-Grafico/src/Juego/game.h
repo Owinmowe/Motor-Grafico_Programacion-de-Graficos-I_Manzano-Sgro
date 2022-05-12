@@ -33,5 +33,7 @@ private:
 	engine::directionalLight* light1;
 	bool isCameraFirstPerson;
 	float cameraSpeed = 10.f;
-	float lightSpeed = 10.f;
+	float lightMovementSpeed = 10.f;
+	float lightRotationSpeed = 50.f;
+
 };

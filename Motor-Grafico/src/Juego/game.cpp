@@ -85,24 +85,35 @@ void game::update()
 		}
 		firstPersonCamera->offsetCameraAim(mousePositionDelta.x, mousePositionDelta.y, true);
 
-		float rotation = engine::time::getDeltaTime() * lightSpeed;
-		glm::vec3 previousRotation = light1->getRot();
+		float rotation = engine::time::getDeltaTime() * lightRotationSpeed;
+		float movement = engine::time::getDeltaTime() * lightMovementSpeed;
 
-		if (isKeyPressed(ENGINE_KEY_A))
+		glm::vec3 previousRotation = light1->getRot();
+		glm::vec3 previousPosition = light1->getPos();
+
+		if (isKeyPressed(ENGINE_KEY_Q))
 		{
 			light1->setRot(previousRotation.x, previousRotation.y - rotation, previousRotation.z);
 		}
-		else if (isKeyPressed(ENGINE_KEY_D))
+		else if (isKeyPressed(ENGINE_KEY_E))
 		{
 			light1->setRot(previousRotation.x, previousRotation.y + rotation, previousRotation.z);
 		}
+		if (isKeyPressed(ENGINE_KEY_A))
+		{
+			light1->setPos(previousPosition.x + movement, previousPosition.y, previousPosition.z);
+		}
+		else if (isKeyPressed(ENGINE_KEY_D))
+		{
+			light1->setPos(previousPosition.x - movement, previousPosition.y, previousPosition.z);
+		}
 		if (isKeyPressed(ENGINE_KEY_W))
 		{
-			light1->setRot(previousRotation.x, previousRotation.y, previousRotation.z + rotation);
+			light1->setPos(previousPosition.x, previousPosition.y, previousPosition.z + movement);
 		}
 		else if (isKeyPressed(ENGINE_KEY_S))
 		{
-			light1->setRot(previousRotation.x, previousRotation.y, previousRotation.z - rotation);
+			light1->setPos(previousPosition.x, previousPosition.y, previousPosition.z - movement);
 		}
 
 	}
@@ -112,36 +123,36 @@ void game::update()
 
 		if (isKeyPressed(ENGINE_KEY_A))
 		{
-			glm::vec3 movement = { engine::time::getDeltaTime() * -lightSpeed, 0, 0 };
+			glm::vec3 movement = { engine::time::getDeltaTime() * -lightMovementSpeed, 0, 0 };
 			cubes[0]->setPos(cubes[0]->getPos() + movement);
 		}
 		else if (isKeyPressed(ENGINE_KEY_D))
 		{
-			glm::vec3 movement = { engine::time::getDeltaTime() * lightSpeed, 0, 0 };
+			glm::vec3 movement = { engine::time::getDeltaTime() * lightMovementSpeed, 0, 0 };
 
 			cubes[0]->setPos(cubes[0]->getPos() + movement);
 		}
 		if (isKeyPressed(ENGINE_KEY_W))
 		{
-			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightSpeed };
+			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * -lightMovementSpeed };
 
 			cubes[0]->setPos(cubes[0]->getPos() + movement);
 		}
 		else if (isKeyPressed(ENGINE_KEY_S))
 		{
-			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightSpeed };
+			glm::vec3 movement = { 0, 0, engine::time::getDeltaTime() * lightMovementSpeed };
 
 			cubes[0]->setPos(cubes[0]->getPos() + movement);
 		}
 		if (isKeyPressed(ENGINE_KEY_Q))
 		{
-			glm::vec3 movement = { 0, engine::time::getDeltaTime() * -lightSpeed, 0 };
+			glm::vec3 movement = { 0, engine::time::getDeltaTime() * -lightMovementSpeed, 0 };
 
 			cubes[0]->setPos(cubes[0]->getPos() + movement);
 		}
 		else if (isKeyPressed(ENGINE_KEY_E))
 		{
-			glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightSpeed, 0 };
+			glm::vec3 movement = { 0, engine::time::getDeltaTime() * lightMovementSpeed, 0 };
 
 			cubes[0]->setPos(cubes[0]->getPos() + movement);
 		}
